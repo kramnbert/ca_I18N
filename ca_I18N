@@ -152,7 +152,7 @@ const CombatAssistant = (() => {
                     resources: 'CA Resources',
                     conc: 'CA Concentration',
                 },
-				actions_card: {
+                actions_card: {
                     disengage: 'Disen.',
                     'combat-special': 'Special',
                     dodge: 'Dodge',
