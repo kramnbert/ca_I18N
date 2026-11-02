@@ -160,6 +160,9 @@ const CombatAssistant = (() => {
                     dash: 'Dash',
                     combat: 'Combat',
                     spells: 'Spells',
+                    whisper: 'Whisper',
+                    'roll-damage': 'Roll Damage',
+                    'dex-tiebreaker': 'Tie Breaker',
                     disengage_tip: 'Take the Disengage action',
                     'combat-special_tip': 'Open Special Actions',
                     dodge_tip: 'Take the Dodge action',
@@ -167,6 +170,9 @@ const CombatAssistant = (() => {
                     dash_tip: 'Take the Dash action',
                     combat_tip: 'List attacks from this character sheet',
                     spells_tip: 'Open combat spells',
+                    whisper_tip: 'Whisper native sheet rolls to the GM.',
+                    'roll-damage_tip': 'Roll attack damage automatically with native sheet attacks.',
+                    'dex-tiebreaker_tip': 'Add Dexterity as the native sheet initiative tie breaker.',
                 },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
@@ -351,11 +357,14 @@ const CombatAssistant = (() => {
                 actions_card: {
                     disengage: 'Déseng.',
                     'combat-special': 'Spécial',
-                    dodge: 'Dodge',
+                    dodge: 'Esquive',
                     sheet: 'Perso',
-                    dash: 'Esquive',
+                    dash: 'Pointe',
                     combat: 'Combat',
                     spells: 'Sorts',
+                    whisper: 'Murmurer',
+                    'roll-damage': 'Dégâts auto',
+                    'dex-tiebreaker': 'Egalité Init.',
                     disengage_tip: 'Faire l\'action Désengagement',
                     'combat-special_tip': 'Montrer les actions spéciales',
                     dodge_tip: 'Faire l\'action Esquive',
@@ -363,6 +372,9 @@ const CombatAssistant = (() => {
                     dash_tip: 'Faire l\'action Pointe',
                     combat_tip: 'Montrer les attaques',
                     spells_tip: 'Montrer les sorts',
+                    whisper_tip: 'Murmurer les jets de dés au MJ.',
+                    'roll-damage_tip': 'Tirer les dégâts d\'attaque automatiquement.',
+                    'dex-tiebreaker_tip': 'Résoudre les égalités d\'initiative en ajoutant la dextérité.',
                 },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
@@ -15767,9 +15779,9 @@ const CombatAssistant = (() => {
                 const settings = root && root.settings && typeof root.settings === 'object' ? root.settings : {};
                 const rolls = settings.rolls && typeof settings.rolls === 'object' ? settings.rolls : {};
                 return [
-                    { key: 'whisper', label: 'Whisper', enabled: String(rolls.privacy || 'public').trim().toLowerCase() !== 'public', tip: 'Whisper native sheet rolls to the GM.' },
-                    { key: 'roll-damage', label: 'Roll Damage', enabled: settings.rollDamageAutomatic === true, tip: 'Roll attack damage automatically with native sheet attacks.' },
-                    { key: 'dex-tiebreaker', label: 'Tie Breaker', enabled: settings.addDexTiebreaker === true, tip: 'Add Dexterity as the native sheet initiative tie breaker.' }
+                    { key: 'whisper', label: I18N.t('actions_card.whisper'), enabled: String(rolls.privacy || 'public').trim().toLowerCase() !== 'public', tip: I18N.t('actions_card.whisper_tip') },
+                    { key: 'roll-damage', label: I18N.t('actions_card.roll-damage'), enabled: settings.rollDamageAutomatic === true, tip: I18N.t('actions_card.roll-damage_tip') },
+                    { key: 'dex-tiebreaker', label: I18N.t('actions_card.dex-tiebreaker'), enabled: settings.addDexTiebreaker === true, tip: I18N.t('actions_card.dex-tiebreaker_tip') }
                 ];
             }
             const attrs = Array.isArray(suppliedAttrs) ? suppliedAttrs : R20.getCharacterAttributes(safeCharacterId);
@@ -15783,9 +15795,9 @@ const CombatAssistant = (() => {
             const dtype = String(map.dtype || '').trim().toLowerCase();
             const tie = String(map.init_tiebreaker || '').trim().toLowerCase();
             return [
-                { key: 'whisper', label: 'Whisper', enabled: wtype === '/w gm', tip: 'Whisper native sheet rolls to the GM.' },
-                { key: 'roll-damage', label: 'Roll Damage', enabled: dtype === 'full', tip: 'Roll attack damage automatically with native sheet attacks.' },
-                { key: 'dex-tiebreaker', label: 'Tie Breaker', enabled: !!tie && tie !== '0', tip: 'Add Dexterity as the native sheet initiative tie breaker.' }
+                { key: 'whisper', label: I18N.t('actions_card.whisper'), enabled: wtype === '/w gm', tip: I18N.t('actions_card.whisper_tip') },
+                { key: 'roll-damage', label: I18N.t('actions_card.roll-damage'), enabled: dtype === 'full', tip: I18N.t('actions_card.roll-damage_tip') },
+                { key: 'dex-tiebreaker', label: I18N.t('actions_card.dex-tiebreaker'), enabled: !!tie && tie !== '0', tip: I18N.t('actions_card.dex-tiebreaker_tip') }
             ];
         },
 
