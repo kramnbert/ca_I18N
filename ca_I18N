@@ -152,6 +152,22 @@ const CombatAssistant = (() => {
                     resources: 'CA Resources',
                     conc: 'CA Concentration',
                 },
+				actions_card: {
+                    disengage: 'Disen.',
+                    'combat-special': 'Special',
+                    dodge: 'Dodge',
+                    sheet: 'Sheet',
+                    dash: 'Dash',
+                    combat: 'Combat',
+                    spells: 'Spells',
+                    disengage_tip: 'Take the Disengage action',
+                    'combat-special_tip': 'Open Special Actions',
+                    dodge_tip: 'Take the Dodge action',
+                    sheet_tip: 'Open Compact Sheet',
+                    dash_tip: 'Take the Dash action',
+                    combat_tip: 'List attacks from this character sheet',
+                    spells_tip: 'Open combat spells',
+                },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
                 },
@@ -331,6 +347,22 @@ const CombatAssistant = (() => {
                     turnfocus: 'CA Focus de Tour',
                     resources: 'CA Ressources',
                     conc: 'CA Concentration',
+                },
+                actions_card: {
+                    disengage: 'Déseng.',
+                    'combat-special': 'Spécial',
+                    dodge: 'Dodge',
+                    sheet: 'Perso',
+                    dash: 'Esquive',
+                    combat: 'Combat',
+                    spells: 'Sorts',
+                    disengage_tip: 'Faire l\'action Désengagement',
+                    'combat-special_tip': 'Montrer les actions spéciales',
+                    dodge_tip: 'Faire l\'action Esquive',
+                    sheet_tip: 'Montrer la feuille perso',
+                    dash_tip: 'Faire l\'action Pointe',
+                    combat_tip: 'Montrer les attaques',
+                    spells_tip: 'Montrer les sorts',
                 },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
@@ -5803,17 +5835,17 @@ const CombatAssistant = (() => {
             const opts = options || {};
             if ((!RuntimeConfig.get('HANDLE_ACTIONS') && !opts.forceActions) || !info || !info.tokenId) return '';
             const secondaryButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, 'Disen.', 'disengage', { tooltip: 'Take the Disengage action', backgroundColor: 'rgba(45,45,45,0.95)' })
-                : this.turnCardButtonHtml(info.tokenId, 'Special', 'combat-special', { tooltip: 'Open Special Actions', backgroundColor: 'rgba(45,105,175,0.95)' });
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.disengage'), 'disengage', { tooltip: I18N.t('actions_card.disengage_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat-special'), 'combat-special', { tooltip: I18N.t('actions_card.combat-special_tip'), backgroundColor: 'rgba(45,105,175,0.95)' });
             const centerButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, 'Dodge', 'dodge', { tooltip: 'Take the Dodge action', backgroundColor: 'rgba(45,45,45,0.95)' })
-                : this.turnCardButtonHtml(info.tokenId, 'Sheet', 'sheet', { tooltip: 'Open Compact Sheet', backgroundColor: 'rgba(190,155,30,0.75)' });
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dodge'), 'dodge', { tooltip: I18N.t('actions_card.dodge_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.sheet'), 'sheet', { tooltip: I18N.t('actions_card.sheet_tip'), backgroundColor: 'rgba(190,155,30,0.75)' });
             const buttons = [
-                this.turnCardButtonHtml(info.tokenId, 'Dash', 'dash', { tooltip: 'Take the Dash action', backgroundColor: 'rgba(45,45,45,0.95)' }),
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dash'), 'dash', { tooltip: I18N.t('actions_card.dash_tip'), backgroundColor: 'rgba(45,45,45,0.95)' }),
                 secondaryButton,
                 centerButton,
-                this.turnCardButtonHtml(info.tokenId, 'Combat', 'combat', { tooltip: 'List attacks from this character sheet', backgroundColor: 'rgba(105,35,35,0.95)' }),
-                this.turnCardButtonHtml(info.tokenId, 'Spells', 'spells', { tooltip: 'Open combat spells', backgroundColor: 'rgba(65,55,120,0.95)' })
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat'), 'combat', { tooltip: I18N.t('actions_card.combat_tip'), backgroundColor: 'rgba(105,35,35,0.95)' }),
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.spells'), 'spells', { tooltip: I18N.t('actions_card.spells_tip'), backgroundColor: 'rgba(65,55,120,0.95)' })
             ];
             return '<div style="text-align:center;white-space:normal;line-height:normal;">' +
                 buttons.map((button, index) => (index ? '<span style="display:inline-block;width:3px;height:1px;"></span>' : '') + button).join('') +
