@@ -78,7 +78,7 @@ const CombatAssistant = (() => {
                     back: 'BACK',
                     toggle: 'TOGGLE',
                     cancel: 'CAN',
-					roll: 'ROLL',
+                    roll: 'ROLL',
                     modifier: 'Mod.',
                     savingthrow: 'ST',
                     get_narrative: 'get',
@@ -87,14 +87,14 @@ const CombatAssistant = (() => {
                     back_narrative: 'back',
                     toggle_narrative: 'toggle',
                     cancel_narrative: 'cancel',
-					roll_narrative: 'Roll ',
+                    roll_narrative: 'Roll ',
                     modifier_narrative: 'modifier',
                     savingthrow_narrative: 'saving throw',
                     savingthrow_narrative_short: 'Save',
-					initiative: 'Initiative',
-					initiative_narrative: 'initiative',
-					hptemp: 'HP Temp',
-					hptemp_narrative: 'temporary hit points',
+                    initiative: 'Initiative',
+                    initiative_narrative: 'initiative',
+                    hptemp: 'HP Temp',
+                    hptemp_narrative: 'temporary hit points',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'No selected token.',
@@ -204,6 +204,14 @@ const CombatAssistant = (() => {
                     TEST_title: 'Combat Assistant Test',
                 },
                 config: {
+                    PRIVACY_PAGE: 'Privacy Settings',
+                    COMBAT_PAGE: 'Combat Settings',
+                    TURN_PAGE: 'Turn Tracker Settings',
+                    RESOURCES_PAGE: 'Resources Settings',
+                    MARKERS_PAGE: 'Token Markers',
+
+                    TOGGLE: 'Toggle setting',
+
                     CHAT_TRACKING: 'Chat Tracking', CHAT_TRACKING_tip: 'Read Roll20 attack, damage, healing, and related combat rolls.',
                     CA_ROLLS_INITIATIVE: '2024 Combat Assistant Rolls Initiative', CA_ROLLS_INITIATIVE_tip: 'ON lets Combat Assistant roll 2024 initiative from sheet data; OFF keeps native Roll20 initiative.',
                     SHEET_2014_CA_ROLLS: '2014 Combat Assistant Rolls', SHEET_2014_CA_ROLLS_tip: 'OFF keeps native 2014 saving throws and initiative; ON lets Combat Assistant perform those supported rolls.',
@@ -283,7 +291,10 @@ const CombatAssistant = (() => {
                     CHAT_BACKGROUND_IMAGE_URL: 'Change Background URL', CHAT_BACKGROUND_IMAGE_URL_tip: 'Set the background image used by Combat Assistant cards.',
                     CHAT_PROBE: 'Chat Probe', CHAT_PROBE_tip: 'Whisper compact Roll20 chat-message diagnostics to the GM for parser testing.',
                     GET_TOKEN_IMAGE_URL: 'Get Token Image URL', GET_TOKEN_IMAGE_URL_tip: 'Select exactly one token and return its current live token image URL.',
+                        TOKEN_IMAGE_URL: 'Token Image URL',
                     LANGUAGE: 'Language', LANGUAGE_tip: 'Set the language used by Combat Assistant.',
+
+                    RESET: 'Default', RESET_tip: 'Reset all persistent Combat Assistant settings to default',
                 }
             },
             fr: {
@@ -306,7 +317,7 @@ const CombatAssistant = (() => {
                     back: 'RET',
                     toggle: 'INV',
                     cancel: 'ANN',
-					roll: 'JET',
+                    roll: 'JET',
                     modifier: 'Mod.',
                     savingthrow: 'JS',
                     get_narrative: 'lire',
@@ -315,14 +326,14 @@ const CombatAssistant = (() => {
                     back_narrative: 'retour',
                     toggle_narrative: 'inverser',
                     cancel_narrative: 'annuler',
-					roll_narrative: 'Faire un jet ',
+                    roll_narrative: 'Faire un jet ',
                     modifier_narrative: 'modificateur',
                     savingthrow_narrative: 'jet sauveur',
                     savingthrow_narrative_short: 'JS',
-					initiative: 'Initiative',
-					initiative_narrative: 'initiative',
-					hptemp: 'PV Temp',
-					hptemp_narrative: 'points de vie temporaires',
+                    initiative: 'Initiative',
+                    initiative_narrative: 'initiative',
+                    hptemp: 'PV Temp',
+                    hptemp_narrative: 'points de vie temporaires',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'Aucun jeton sélectionné.',
@@ -432,6 +443,14 @@ const CombatAssistant = (() => {
                     TEST_title: 'Combat Assistant Test',
                 },
                 config: {
+                    PRIVACY_PAGE: 'Confidentialité',
+                    COMBAT_PAGE: 'Combat',
+                    TURN_PAGE: 'Gestion des Tours',
+                    RESOURCES_PAGE: 'Ressources',
+                    MARKERS_PAGE: 'Marqueurs Jeton',
+
+                    TOGGLE: 'Inverser la valeur',
+                    
                     CHAT_TRACKING: 'Surveiller le Chat', CHAT_TRACKING_tip: 'Lire les attaques, dégâts, soins, et autres tirages de combat affichés dans le Chat par Roll20.',
                     CA_ROLLS_INITIATIVE: 'Initiative 2024 par Combat Assistant', CA_ROLLS_INITIATIVE_tip: 'ON Combat Assistant tire l\'initiative à partir des données de la feuille perso 2024; OFF Maintenir le tirage de l\'initiative par Roll20.',
                     SHEET_2014_CA_ROLLS: 'Tirages 2014 par Combat Assistant', SHEET_2014_CA_ROLLS_tip: 'ON Combat Assistant tire l\'initiative et les jets sauveurs à partir des données de la feuille perso 2014; OFF Maintenir le tirage de l\'initiative et des jets sauveurs par Roll20.',
@@ -510,8 +529,11 @@ const CombatAssistant = (() => {
                     AREA_RADIUS_DEBUG_DRAW: 'Debug Marqueur Zone Effet', AREA_RADIUS_DEBUG_DRAW_temporary: true, advancedOnly: true, tip: 'Dessiner les cercles de référence pour MJ seul lors de la résolution d\'un Marqueur Zone Effet circulaire (temporaire).',
                     CHAT_BACKGROUND_IMAGE_URL: 'URL d\'Arrière-plan', CHAT_BACKGROUND_IMAGE_URL_tip: 'URL(Roll20) de l\'image utilisée pour les affichages de  Combat Assistant.',
                     CHAT_PROBE: 'Debug dans le Chat', CHAT_PROBE_tip: 'Mumurer au MJ les diagnostics des affichages Chat (tests du parser).',
-                    GET_TOKEN_IMAGE_URL: 'Affichage URL Jeton', GET_TOKEN_IMAGE_URL_tip: 'Sélectionner un et un seul jeton et affiche l\'URL de son image.',
+                    GET_TOKEN_IMAGE_URL: 'Afficher URL Image du jeton', GET_TOKEN_IMAGE_URL_tip: 'Sélectionner un et un seul jeton et affiche l\'URL de son image.',
+                        TOKEN_IMAGE_URL: 'URL Image du jeton',
                     LANGUAGE: 'Langue', LANGUAGE_tip: 'Langue utilisée par Combat Assistant.',
+
+                    RESET: 'Réinit.', RESET_tip: 'Réinitialiser toutes les valeurs de configuration persistantes de Combat Assistant avec leurs valeurs par défaut',
                 }
             }
         },
@@ -1674,7 +1696,7 @@ const CombatAssistant = (() => {
         },
 
         abilityShortLabel(value) {
-			return (ABILITIES[this.normalizeAbilityName(value)] || (function () { return '' }))();//KNB
+            return (ABILITIES[this.normalizeAbilityName(value)] || (function () { return '' }))();//KNB
         },
 
         abilityScoreToModifier(score) {
@@ -6888,7 +6910,7 @@ const CombatAssistant = (() => {
                 '<td style="width:46px;padding:0 6px 0 0;text-align:left;vertical-align:middle;">' + image + '</td>' +
                 '<td style="padding:0;text-align:left;vertical-align:middle;color:rgb(225,225,225);font-size:10px;line-height:13px;word-break:break-all;overflow-wrap:anywhere;">' + Utils.escapeHtml(rawUrl) + '</td>' +
             '</tr></tbody></table>';
-            return Html.card({ title: 'Token Image URL', body, buildOptions: { bodyAlign: 'left' } });
+            return Html.card({ title: I18N.t('config.TOKEN_IMAGE_URL'), body, buildOptions: { bodyAlign: 'left' } });//KNB
         },
 
         settingsTitleControlHtml(command, tooltip, iconHtml) {
@@ -6923,7 +6945,7 @@ const CombatAssistant = (() => {
                 const button = this.compactSettingButtonHtml({
                     label: enabled ? 'ON' : 'OFF',
                     command: Utils.isFunction(commandBuilder) ? commandBuilder(entry, !enabled) : '#',
-                    tooltip: String(entry && entry.tip || entry && entry.label || 'Toggle setting'),
+                    tooltip: String(entry && entry.tip || entry && entry.label || I18N.t('config.TOGGLE')),//KNB
                     backgroundColor: enabled ? 'rgba(20,115,55,0.95)' : 'rgba(120,40,40,0.95)'
                 });
                 return this.settingsValueRowHtml(entry && entry.label, button, entry && entry.tip);
@@ -6933,11 +6955,11 @@ const CombatAssistant = (() => {
         showConfigMenu(target, requestedPage) {
             const safePage = String(requestedPage || '').trim().toLowerCase();
             const pageTitles = {
-                privacy: 'Privacy Settings',
-                combat: 'Combat Settings',
-                turn: 'Turn Tracker Settings',
-                resources: 'Resources Settings',
-                markers: 'Token Markers'
+                privacy: I18N.t('config.PRIVACY_PAGE'),//KNB
+                combat: I18N.t('config.COMBAT_PAGE'),//KNB
+                turn: I18N.t('config.TURN_PAGE'),//KNB
+                resources: I18N.t('config.RESOURCES_PAGE'),//KNB
+                markers: I18N.t('config.MARKERS_PAGE'),//KNB
             };
             const pageKey = Object.prototype.hasOwnProperty.call(pageTitles, safePage) ? safePage : 'main';
             const settings = RuntimeConfig.getAll();
@@ -6996,10 +7018,10 @@ const CombatAssistant = (() => {
             const navigationTableOpen = '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><colgroup><col style="width:50%;"><col style="width:50%;"></colgroup><tbody>';
             const tableClose = '</tbody></table>';
             const defaultButton = this.compactSettingButtonHtml({
-                label: 'Default',
+                label: I18N.t('config.RESET'),
                 width: 66,
-                command: '!combatAssistant defaults &#63;{Reset all Combat Assistant settings to default?|No,no|Yes,yes}',
-                tooltip: 'Restore every persistent setting to its default value',
+                command: '!combatAssistant defaults &#63;{'+I18N.t('config.RESET_tip')+'?|No,no|Yes,yes}',
+                tooltip: I18N.t('config.RESET_tip'),
                 backgroundColor: 'rgba(70,70,70,0.95)'
             });
             if (pageKey === 'main') {
