@@ -81,20 +81,29 @@ const CombatAssistant = (() => {
                     roll: 'ROLL',
                     modifier: 'Mod.',
                     savingthrow: 'ST',
+                    savingthrow: 'ST',
+                    difficulty: 'DC',
+                    source: 'Source',
+                    target: 'Target',
+					effects: 'Effects',
                     get_narrative: 'get',
                     set_narrative: 'set',
                     edit_narrative: 'edit',
                     back_narrative: 'back',
                     toggle_narrative: 'toggle',
                     cancel_narrative: 'cancel',
-                    roll_narrative: 'Roll ',
+                    roll_narrative: 'Roll',
                     modifier_narrative: 'modifier',
                     savingthrow_narrative: 'saving throw',
                     savingthrow_narrative_short: 'Save',
+                    difficulty_narrative: 'difficulty class',
                     initiative: 'Initiative',
                     initiative_narrative: 'initiative',
                     hptemp: 'HP Temp',
                     hptemp_narrative: 'temporary hit points',
+                    damage: 'Damage',
+					character: 'Character',
+					open: 'Open',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'No selected token.',
@@ -118,6 +127,9 @@ const CombatAssistant = (() => {
                     FREE_ACTION: 'Free Action',
                     LEGENDARY_ACTION: 'Legendary Action',
                     MYTHIC_ACTION: 'Mythic Action',
+                    damage_to_roll: 'Roll damage: ',
+					cantrips: 'CANTRIPS',
+					spells_level: 'LEVEL',
                 },
                 abilities: {
                     title_plural: 'Attributes',
@@ -163,22 +175,26 @@ const CombatAssistant = (() => {
                     survival: 'Survival',
                 },
                 actions: {
-                    help: 'CA Help',
-                    sheet: 'CA Sheet',
-                    'player-init': 'CA Initiative',
-                    combat: 'CA Combat',
-                    spells: 'CA Spells',
-                    dash: 'CA Dash',
-                    disengage: 'CA Disengage',
-                    dodge: 'CA Dodge',
-                    turn: 'CA Turn',
-                    turncard: 'CA Turn Card',
-                    turnnext: 'CA Turn Next',
-                    turnfocus: 'CA Turn Focus',
-                    resources: 'CA Resources',
-                    conc: 'CA Concentration',
-                },
-                actions_card: {
+                    help_ca: 'CA Help',
+                    sheet_ca: 'CA Sheet',
+                    'player-init_ca': 'CA Initiative',
+                    combat_ca: 'CA Combat',
+                    spells_ca: 'CA Spells',
+                    dash_ca: 'CA Dash',
+                    disengage_ca: 'CA Disengage',
+                    dodge_ca: 'CA Dodge',
+                    turn_ca: 'CA Turn',
+                    turncard_ca: 'CA Turn Card',
+                    turnnext_ca: 'CA Turn Next',
+                    turnfocus_ca: 'CA Turn Focus',
+                    resources_ca: 'CA Resources',
+                    conc_ca: 'CA Concentration',
+
+                    title_plural: 'Actions',
+                    title_singular: 'Action',
+                    special_plural: 'Special Actions',
+                    special_singular: 'Special Action',
+                    attack: 'Attack',
                     disengage: 'Disen.',
                     'combat-special': 'Special',
                     dodge: 'Dodge',
@@ -189,6 +205,9 @@ const CombatAssistant = (() => {
                     whisper: 'Whisper',
                     'roll-damage': 'Roll Damage',
                     'dex-tiebreaker': 'Tie Breaker',
+                    send: 'Send',
+
+                    attack_tip: 'Take the Attack action',
                     disengage_tip: 'Take the Disengage action',
                     'combat-special_tip': 'Open Special Actions',
                     dodge_tip: 'Take the Dodge action',
@@ -199,16 +218,28 @@ const CombatAssistant = (() => {
                     whisper_tip: 'Whisper native sheet rolls to the GM.',
                     'roll-damage_tip': 'Roll attack damage automatically with native sheet attacks.',
                     'dex-tiebreaker_tip': 'Add Dexterity as the native sheet initiative tie breaker.',
+                    send_tip: 'Send to chat',
+                    
+                    uses_narrative: ' uses ',
+                    roll_healing_narrative: ' rolls healing.',
+                    uses_special_narrative: ' uses a special action.',
+					concentration: 'Conc.',
                 },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
                 },
                 config: {
+                    SETTINGS: 'Settings',
+					BACK_TO: 'Back to ',
+					MAIN: 'Main',
+					SUB_MENUS: 'Sub Menus',
+
                     PRIVACY_PAGE: 'Privacy Settings',
                     COMBAT_PAGE: 'Combat Settings',
                     TURN_PAGE: 'Turn Tracker Settings',
                     RESOURCES_PAGE: 'Resources Settings',
                     MARKERS_PAGE: 'Token Markers',
+                    TEMPLATES_PAGE: 'Spell Templates',
 
                     TOGGLE: 'Toggle setting',
 
@@ -320,20 +351,28 @@ const CombatAssistant = (() => {
                     roll: 'JET',
                     modifier: 'Mod.',
                     savingthrow: 'JS',
+                    difficulty: 'DD',
+                    source: 'Source',
+                    target: 'Cible',
+					effects: 'Effets',
                     get_narrative: 'lire',
                     set_narrative: 'ecrire',
                     edit_narrative: 'modifier',
                     back_narrative: 'retour',
                     toggle_narrative: 'inverser',
                     cancel_narrative: 'annuler',
-                    roll_narrative: 'Faire un jet ',
+                    roll_narrative: 'Faire un jet',
                     modifier_narrative: 'modificateur',
                     savingthrow_narrative: 'jet sauveur',
                     savingthrow_narrative_short: 'JS',
+                    difficulty_narrative: 'degré de difficulté',
                     initiative: 'Initiative',
                     initiative_narrative: 'initiative',
                     hptemp: 'PV Temp',
                     hptemp_narrative: 'points de vie temporaires',
+                    damage: 'Dégâts',
+					character: 'Personnage',
+					open: 'Montrer',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'Aucun jeton sélectionné.',
@@ -357,6 +396,9 @@ const CombatAssistant = (() => {
                     FREE_ACTION: 'Action libre',
                     LEGENDARY_ACTION: 'Action légendaire',
                     MYTHIC_ACTION: 'Action mythique',
+                    damage_to_roll: 'Dégâts à tirer: ',
+					cantrips: 'MINEURS',
+					spells_level: 'NIVEAU',
                 },
                 abilities: {
                     title_plural: 'Attributs',
@@ -416,8 +458,12 @@ const CombatAssistant = (() => {
                     turnfocus: 'CA Focus de Tour',
                     resources: 'CA Ressources',
                     conc: 'CA Concentration',
-                },
-                actions_card: {
+
+                    title_plural: 'Actions',
+                    title_singular: 'Action',
+                    special_plural: 'Actions Spéciales',
+                    special_singular: 'Action Spéciale',
+                    attack: 'Attaque',
                     disengage: 'Déseng.',
                     'combat-special': 'Spécial',
                     dodge: 'Esquive',
@@ -428,6 +474,9 @@ const CombatAssistant = (() => {
                     whisper: 'Murmurer',
                     'roll-damage': 'Dégâts auto',
                     'dex-tiebreaker': 'Egalité Init.',
+                    send: 'Envoyer',
+
+                    attack_tip: 'Faire l\'action Attaque',
                     disengage_tip: 'Faire l\'action Désengagement',
                     'combat-special_tip': 'Montrer les actions spéciales',
                     dodge_tip: 'Faire l\'action Esquive',
@@ -438,16 +487,28 @@ const CombatAssistant = (() => {
                     whisper_tip: 'Murmurer les jets de dés au MJ.',
                     'roll-damage_tip': 'Tirer les dégâts d\'attaque automatiquement.',
                     'dex-tiebreaker_tip': 'Résoudre les égalités d\'initiative en ajoutant la dextérité.',
+                    send_tip: 'Envoyer au chat',
+                    
+                    uses_narrative: ' utilise ',
+                    roll_healing_narrative: ' tire les soins.',
+                    uses_special_narrative: ' fait une action spéciale.',
+					concentration: 'Conc.',
                 },
                 commands: {
                     TEST_title: 'Combat Assistant Test',
                 },
                 config: {
+                    SETTINGS: 'Config.',
+					BACK_TO: 'Retour à ',
+					MAIN: 'Principal',
+					SUB_MENUS: 'Sous-menus',
+
                     PRIVACY_PAGE: 'Confidentialité',
                     COMBAT_PAGE: 'Combat',
                     TURN_PAGE: 'Gestion des Tours',
                     RESOURCES_PAGE: 'Ressources',
                     MARKERS_PAGE: 'Marqueurs Jeton',
+                    TEMPLATES_PAGE: 'Modèles de Sorts',
 
                     TOGGLE: 'Inverser la valeur',
                     
@@ -521,8 +582,8 @@ const CombatAssistant = (() => {
                     SHOW_PREPARED_SPELLS_ONLY_2024: 'Montrer les sorts préparés (2024)', SHOW_PREPARED_SPELLS_ONLY_2024_tip: 'Montrer seulement les sorts mineurs, les sorts préparés/toujours préparés lorsqu\'ils le sont marqués par Roll20.',
                     PLAYER_PUBLIC_RESOURCE_USAGE: 'Montrer Ressources Publiquement', PLAYER_PUBLIC_RESOURCE_USAGE_tip: 'Afficher à tous les consommations de ressource au lieu de les murmurer au joueur.',
                     
-                    USE_ROLL20_DAMAGE_ICON: 'Utiliser l\'icone dégâts de Roll20', USE_ROLL20_DAMAGE_ICON_tip: 'Utiliser l\'icone dégâts de Roll20 au lieu de celui ce Combat Assistant.',
-                    APPLY_ROLL20_ICON_DAMAGE_COLOR: 'Utiliser la couleur de l\'icone dégâts de Roll20', APPLY_ROLL20_ICON_DAMAGE_COLOR_tip: 'Utiliser la couleur de l\'icone dégâts de Roll20 au lieu de celle de Combat Assistant.',
+                    USE_ROLL20_DAMAGE_ICON: 'Utiliser l\'icone dégâts Roll20', USE_ROLL20_DAMAGE_ICON_tip: 'Utiliser l\'icone dégâts Roll20 au lieu de celui ce Combat Assistant.',
+                    APPLY_ROLL20_ICON_DAMAGE_COLOR: 'Utiliser la couleur de l\'icone dégâts Roll20', APPLY_ROLL20_ICON_DAMAGE_COLOR_tip: 'Utiliser la couleur de l\'icone dégâts Roll20 au lieu de celle de Combat Assistant.',
                     DEBUG: 'Debug', DEBUG_tip: 'ON Logs de Debug affichés dans la console API. Réinitialisé à OFF au redémarrage de la Sandbox.',
                     CHAT_DEBUG_ATTACKS: 'Debug Attaques dans le Chat', CHAT_DEBUG_ATTACKS_tip: 'Diagnostic complet des attaques affiché dans le chat (temporaire).',
                     CHAT_DEBUG_SPELLS: 'Debug Sorts dans le Chat', CHAT_DEBUG_SPELLS_tip: 'Diagnostic complet des sorts affiché dans le chat (temporaire).',
@@ -614,20 +675,20 @@ const CombatAssistant = (() => {
 
     //KNB
     const PLAYER_TOKEN_ACTIONS = Object.freeze({
-        help: Object.freeze({ name: (function () { return I18N.t('actions.help') }), command: '!ca help' }),
-        sheet: Object.freeze({ name: (function () { return I18N.t('actions.sheet') }), command: '!ca sheet' }),
-        'player-init': Object.freeze({ name: (function () { return I18N.t('actions.player-init') }), command: '!ca player-init' }),
-        combat: Object.freeze({ name: (function () { return I18N.t('actions.combat') }), command: '!ca combat' }),
-        spells: Object.freeze({ name: (function () { return I18N.t('actions.spells') }), command: '!ca spells' }),
-        dash: Object.freeze({ name: (function () { return I18N.t('actions.dash') }), command: '!ca dash' }),
-        disengage: Object.freeze({ name: (function () { return I18N.t('actions.disengage') }), command: '!ca disengage' }),
-        dodge: Object.freeze({ name: (function () { return I18N.t('actions.dodge') }), command: '!ca dodge' }),
-        turn: Object.freeze({ name: (function () { return I18N.t('actions.turn') }), command: '!ca turn' }),
-        turncard: Object.freeze({ name: (function () { return I18N.t('actions.turncard') }), command: '!ca turncard' }),
-        turnnext: Object.freeze({ name: (function () { return I18N.t('actions.turnnext') }), command: '!ca turnnext' }),
-        turnfocus: Object.freeze({ name: (function () { return I18N.t('actions.turnfocus') }), command: '!ca turnfocus' }),
-        resources: Object.freeze({ name: (function () { return I18N.t('actions.resources') }), command: '!ca resources' }),
-        conc: Object.freeze({ name: (function () { return I18N.t('actions.conc') }), command: '!ca conc' }),
+        help: Object.freeze({ name: (function () { return I18N.t('actions.help_ca') }), command: '!ca help' }),
+        sheet: Object.freeze({ name: (function () { return I18N.t('actions.sheet_ca') }), command: '!ca sheet' }),
+        'player-init': Object.freeze({ name: (function () { return I18N.t('actions.player-init_ca') }), command: '!ca player-init' }),
+        combat: Object.freeze({ name: (function () { return I18N.t('actions.combat_ca') }), command: '!ca combat' }),
+        spells: Object.freeze({ name: (function () { return I18N.t('actions.spells_ca') }), command: '!ca spells' }),
+        dash: Object.freeze({ name: (function () { return I18N.t('actions.dash_ca') }), command: '!ca dash' }),
+        disengage: Object.freeze({ name: (function () { return I18N.t('actions.disengage_ca') }), command: '!ca disengage' }),
+        dodge: Object.freeze({ name: (function () { return I18N.t('actions.dodge_ca') }), command: '!ca dodge' }),
+        turn: Object.freeze({ name: (function () { return I18N.t('actions.turn_ca') }), command: '!ca turn' }),
+        turncard: Object.freeze({ name: (function () { return I18N.t('actions.turncard_ca') }), command: '!ca turncard' }),
+        turnnext: Object.freeze({ name: (function () { return I18N.t('actions.turnnext_ca') }), command: '!ca turnnext' }),
+        turnfocus: Object.freeze({ name: (function () { return I18N.t('actions.turnfocus_ca') }), command: '!ca turnfocus' }),
+        resources: Object.freeze({ name: (function () { return I18N.t('actions.resources_ca') }), command: '!ca resources' }),
+        conc: Object.freeze({ name: (function () { return I18N.t('actions.conc_ca') }), command: '!ca conc' }),
     });
     //KNB
 
@@ -5921,17 +5982,17 @@ const CombatAssistant = (() => {
             const opts = options || {};
             if ((!RuntimeConfig.get('HANDLE_ACTIONS') && !opts.forceActions) || !info || !info.tokenId) return '';
             const secondaryButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.disengage'), 'disengage', { tooltip: I18N.t('actions_card.disengage_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
-                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat-special'), 'combat-special', { tooltip: I18N.t('actions_card.combat-special_tip'), backgroundColor: 'rgba(45,105,175,0.95)' });//KNB
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions.disengage'), 'disengage', { tooltip: I18N.t('actions.disengage_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions.combat-special'), 'combat-special', { tooltip: I18N.t('actions.combat-special_tip'), backgroundColor: 'rgba(45,105,175,0.95)' });//KNB
             const centerButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dodge'), 'dodge', { tooltip: I18N.t('actions_card.dodge_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
-                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.sheet'), 'sheet', { tooltip: I18N.t('actions_card.sheet_tip'), backgroundColor: 'rgba(190,155,30,0.75)' });//KNB
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions.dodge'), 'dodge', { tooltip: I18N.t('actions.dodge_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions.sheet'), 'sheet', { tooltip: I18N.t('actions.sheet_tip'), backgroundColor: 'rgba(190,155,30,0.75)' });//KNB
             const buttons = [
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dash'), 'dash', { tooltip: I18N.t('actions_card.dash_tip'), backgroundColor: 'rgba(45,45,45,0.95)' }),//KNB
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions.dash'), 'dash', { tooltip: I18N.t('actions.dash_tip'), backgroundColor: 'rgba(45,45,45,0.95)' }),//KNB
                 secondaryButton,
                 centerButton,
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat'), 'combat', { tooltip: I18N.t('actions_card.combat_tip'), backgroundColor: 'rgba(105,35,35,0.95)' }),//KNB
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.spells'), 'spells', { tooltip: I18N.t('actions_card.spells_tip'), backgroundColor: 'rgba(65,55,120,0.95)' })//KNB
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions.combat'), 'combat', { tooltip: I18N.t('actions.combat_tip'), backgroundColor: 'rgba(105,35,35,0.95)' }),//KNB
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions.spells'), 'spells', { tooltip: I18N.t('actions.spells_tip'), backgroundColor: 'rgba(65,55,120,0.95)' })//KNB
             ];
             return '<div style="text-align:center;white-space:normal;line-height:normal;">' +
                 buttons.map((button, index) => (index ? '<span style="display:inline-block;width:3px;height:1px;"></span>' : '') + button).join('') +
@@ -6168,7 +6229,7 @@ const CombatAssistant = (() => {
             const initiativeMarker = this.characterSheetRollMarkerHtml(info && info.initiativeMode);
             const tempHp = String(Math.max(0, Utils.toInt(info && info.tempHp, 0)));
             const quickStats = '<table style="width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:5px;"><tbody><tr>' +
-                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox(I18N.t('common.initiative'), initiativeValue, initiativeCommand, 'rgb(235,215,140)', 'rgb(255,255,255)', I18N.t('common.roll_narrative')+I18N.t('common.initiative_narrative'), initiativeMarker) + '</td>' +//KNB
+                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox(I18N.t('common.initiative'), initiativeValue, initiativeCommand, 'rgb(235,215,140)', 'rgb(255,255,255)', I18N.t('common.roll_narrative')+' '+I18N.t('common.initiative_narrative'), initiativeMarker) + '</td>' +//KNB
                 '<td style="width:2%;padding:0;"></td>' +
                 '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox(I18N.t('common.hptemp'), tempHp, '', 'rgb(235,215,140)', 'rgb(255,105,180)', I18N.t('common.hptemp_narrative'), '') + '</td>' +//KNB
             '</tr></tbody></table>';
@@ -6224,21 +6285,21 @@ const CombatAssistant = (() => {
             if (!damageEntries.length || !command) return '';
             const allDamage = damageEntries.map((entry) => {
                 const formula = String(entry.formula || '').trim();
-                const damageType = String(entry.damageType || 'Damage').trim() || 'Damage';
+                const damageType = String(entry.damageType || I18N.t('common.damage')).trim() || I18N.t('common.damage');//KNB
                 return formula + ' ' + damageType;
             }).join(' | ');
             const visible = damageEntries.slice(0, 2);
             const multiple = visible.length > 1;
             const rows = visible.map((entry) => {
                 const formula = String(entry.formula || '').trim();
-                const damageType = String(entry.damageType || 'Damage').trim() || 'Damage';
+                const damageType = String(entry.damageType || I18N.t('common.damage')).trim() || I18N.t('common.damage');//KNB
                 const icon = this.getDamageTypeIcon(damageType, { size: 11, verticalAlign: 'middle', marginLeft: '2px' }) || '&#128171;';
                 return '<span style="display:block;width:48px;height:' + (multiple ? '12px' : '23px') + ';line-height:' + (multiple ? '12px' : '21px') + ';padding-top:' + (multiple ? '0' : '2px') + ';font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-align:center;box-sizing:border-box;">' +
                     '<b>' + Utils.escapeHtml(formula) + '&nbsp;' + icon + '</b>' +
                 '</span>';
             }).join('');
             const style = 'display:block;width:50px;height:25px;min-width:50px;min-height:25px;padding:0;margin:0;box-sizing:border-box;border:1px solid rgba(255,255,255,0.55);border-radius:4px;background:rgba(85,20,20,0.70);color:rgb(255,255,255);text-align:center;vertical-align:middle;overflow:hidden;font-family:Arial,Helvetica,sans-serif;text-decoration:none;';
-            return '<a href="' + Utils.attrSafe(command) + '" title="' + Utils.attrSafe('Roll damage: ' + allDamage) + '" style="' + style + '">' + rows + '</a>';
+            return '<a href="' + Utils.attrSafe(command) + '" title="' + Utils.attrSafe(I18N.t('combat.damage_to_roll') + allDamage) + '" style="' + style + '">' + rows + '</a>';//KNB
         },
 
         combatSmallActionButtonHtml(topText, bottomText, command, title, options) {
@@ -6270,11 +6331,11 @@ const CombatAssistant = (() => {
             const isSave = saveDc > 0 && !!saveAbilityLabel;
             const command = String(attack && attack.rollCommand || '').trim();
             const breakdown = isSave
-                ? ('DC ' + String(saveDc) + ' ' + saveAbilityLabel + ' Saving Throw')
+                ? (I18N.t('common.difficulty')+' ' + String(saveDc) + ' ' + saveAbilityLabel + ' '+I18N.t('common.savingthrow_narrative'))//KNB
                 : (String(attack && attack.attackBreakdown || bonus).trim() || bonus);
             return this.combatSmallActionButtonHtml(
                 isSave ? String(saveDc) : bonus,
-                isSave ? saveAbilityLabel : 'Roll',
+                isSave ? saveAbilityLabel : I18N.t('common.roll_narrative'),//KNB
                 command,
                 breakdown,
                 { topFontSize: isSave ? 15 : bonusFontSize, bottomFontSize: 10 }
@@ -6294,9 +6355,9 @@ const CombatAssistant = (() => {
             }
             return this.combatSmallActionButtonHtml(
                 '➤',
-                'Send',
+                I18N.t('actions.send'),//KNB
                 command,
-                'Send ' + String(action && action.name || 'action') + ' to chat',
+                I18N.t('actions.send_tip')+': ' + String(action && action.name || 'action'),//KNB
                 { topFontSize: 14, bottomFontSize: 9 }
             );
         },
@@ -6312,7 +6373,7 @@ const CombatAssistant = (() => {
             const nameCursor = tooltip ? 'cursor:help;' : '';
             return '<table style="width:100%;border-collapse:collapse;table-layout:fixed;' + (hasSeparator ? 'border-bottom:1px solid rgba(255,255,255,0.12);' : '') + '"><tbody><tr>' +
                 '<td style="width:70%;text-align:left;vertical-align:middle;padding:4px 3px 4px 0;white-space:normal;overflow-wrap:normal;word-break:normal;">' +
-                    '<div' + nameTitle + ' style="color:' + Utils.attrSafe(safeNameColor) + ';font-size:11px;line-height:13px;font-weight:700;white-space:normal;overflow-wrap:normal;word-break:normal;' + nameCursor + '">' + Utils.escapeHtml(String(name || 'Action')) + '</div>' +
+                    '<div' + nameTitle + ' style="color:' + Utils.attrSafe(safeNameColor) + ';font-size:11px;line-height:13px;font-weight:700;white-space:normal;overflow-wrap:normal;word-break:normal;' + nameCursor + '">' + Utils.escapeHtml(String(name || I18N.t('actions.title_singular'))) + '</div>' +//KNB
                     (detailsHtml ? ('<div style="padding-top:1px;color:rgb(255,255,255);font-size:9px;line-height:11px;font-weight:400;white-space:normal;">' + detailsHtml + '</div>') : '') +
                 '</td>' +
                 '<td style="width:20%;text-align:center;vertical-align:middle;padding:0;">' + String(middleControlHtml || '') + '</td>' +
@@ -6327,7 +6388,7 @@ const CombatAssistant = (() => {
             const image = this.chatTokenImageHtml(String(source.tokenImgsrc || '').trim(), 24, '', 3) || '<span style="display:block;width:24px;height:24px;"></span>';
             return '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><tbody><tr>' +
                 '<td style="width:28px;text-align:left;vertical-align:middle;padding:0;">' + image + '</td>' +
-                '<td style="text-align:center;vertical-align:middle;font-size:17px;line-height:19px;font-weight:900;white-space:normal;">' + Utils.escapeHtml(actionName || 'Special Action') + '</td>' +
+                '<td style="text-align:center;vertical-align:middle;font-size:17px;line-height:19px;font-weight:900;white-space:normal;">' + Utils.escapeHtml(actionName || I18N.t('actions.special_singular')) + '</td>' +//KNB
                 '<td style="width:28px;text-align:right;vertical-align:middle;padding:0;"></td>' +
             '</tr></tbody></table>';
         },
@@ -6337,13 +6398,13 @@ const CombatAssistant = (() => {
             const opts = options && typeof options === 'object' ? options : {};
             const revealNames = RuntimeConfig.get('REVEAL_TOKEN_NAMES_IN_LOG');
             const revealSource = RuntimeConfig.get('REVEAL_DAMAGE_SOURCE');
-            const sourceLabel = revealNames ? String(source.tokenName || source.characterName || 'Source').trim() : 'Source';
-            const sourceHtml = this.characterNameHtml(sourceLabel || 'Source');
-            const actionName = String(source.attackName || 'Special Action').trim() || 'Special Action';
+            const sourceLabel = revealNames ? String(source.tokenName || source.characterName || I18N.t('common.source')).trim() : I18N.t('common.source');//KNB
+            const sourceHtml = this.characterNameHtml(sourceLabel || I18N.t('common.source'));//KNB
+            const actionName = String(source.attackName || I18N.t('actions.special_singular')).trim() || I18N.t('actions.special_singular');//KNB
             const actionHtml = Html.span(Utils.escapeHtml(actionName), 'color:rgb(245,220,80);font-weight:900;');
             const lead = revealSource
-                ? (sourceHtml + ' uses ' + actionHtml + (opts.healing ? ' and rolls healing.' : '.'))
-                : (sourceHtml + (opts.healing ? ' rolls healing.' : ' uses a special action.'));
+                ? (sourceHtml + I18N.t('actions.uses_narrative') + actionHtml + (opts.healing ? ','+I18N.t('actions.roll_healing_narrative') : '.'))//KNB
+                : (sourceHtml + (opts.healing ? I18N.t('actions.roll_healing_narrative') : I18N.t('actions.uses_special_narrative')));//KNB
             const tooltip = this.descriptionTooltipText(description);
             const desc = revealSource && tooltip
                 ? '<div style="padding-top:3px;color:rgb(205,205,205);font-size:10px;line-height:12px;">' + Utils.escapeHtml(tooltip) + '</div>'
@@ -6353,7 +6414,7 @@ const CombatAssistant = (() => {
 
         sendSpecialActionUse(result, description) {
             const source = result && typeof result === 'object' ? result : {};
-            this.sendCombatLogMessage('Special Action', this.specialActionNarrativeHtml(source, description, { healing: false }), 'normal', { titleHtml: this.specialActionTitleHtml(source, 'Special Action') });
+            this.sendCombatLogMessage(I18N.t('actions.special_singular'), this.specialActionNarrativeHtml(source, description, { healing: false }), 'normal', { titleHtml: this.specialActionTitleHtml(source, I18N.t('actions.special_singular')) });//KNB
         },
 
         combatSpecialSectionHtml(definition, entries, tokenId) {
@@ -6368,13 +6429,13 @@ const CombatAssistant = (() => {
                 let detailLabel = String(action.detailLabel || '').trim();
                 if (hasAttackRoll) {
                     middleControl = this.combatAttackRollButtonHtml(action);
-                    detailLabel = String(action.attackTypeLabel || action.attackType || 'Attack').trim() || 'Attack';
+                    detailLabel = String(action.attackTypeLabel || action.attackType || I18N.t('actions.attack')).trim() || I18N.t('actions.attack');//KNB
                 } else if (hasEffect) {
                     middleControl = this.combatAttackDamageButtonHtml(action, { tokenId });
-                    if (!detailLabel) detailLabel = String(action.effectLabel || 'Damage').trim() || 'Damage';
+                    if (!detailLabel) detailLabel = String(action.effectLabel || I18N.t('actions.damage')).trim() || I18N.t('actions.damage');//KNB
                 } else {
                     rightControl = this.combatActionSendButtonHtml(action, { tokenId });
-                    if (!detailLabel) detailLabel = String(action.actionType() || 'Action').trim() || 'Action';//KNB
+                    if (!detailLabel) detailLabel = String(action.actionType() || I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular');//KNB
                 }
                 const details = Utils.escapeHtml(detailLabel) +
                     (action.abilityLabel ? (' <span style="color:rgb(155,155,155);font-weight:700;">[' + Utils.escapeHtml(String(action.abilityLabel)) + ']</span>') : '') +
@@ -6395,12 +6456,12 @@ const CombatAssistant = (() => {
             const rows = this.toggleSettingRowsHtml(entries, (entry, next) =>
                 '!combatAssistant sheeteffect ' + Utils.attrSafe(safeTokenId) + ' ' + Utils.attrSafe(entry.ref) + ' ' + (next ? '1' : '0'));
             return '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><colgroup><col style="width:90%;"><col style="width:10%;"></colgroup><tbody>' +
-                this.settingsSectionRowHtml('Effects', 2) + rows +
+                this.settingsSectionRowHtml(I18N.t('common.effects'), 2) + rows +//KNB
             '</tbody></table><div style="height:1px;background:rgba(125,125,125,0.65);margin:5px 0 2px 0;"></div>';
         },
 
         characterSectionCard(characterName, section, body, characterId, rightControlHtml, context) {
-            const safeName = String(characterName || 'Character').trim() || 'Character';
+            const safeName = String(characterName || I18N.t('common.character')).trim() || I18N.t('common.character');//KNB
             const opts = context || {};
             const character = characterId && typeof getObj === 'function' ? getObj('character', String(characterId)) : null;
             const explicitToken = opts.tokenId ? R20.getTokenById(opts.tokenId) : null;
@@ -6420,7 +6481,7 @@ const CombatAssistant = (() => {
         },
 
         buildCombatCard(characterName, combatData, options) {
-            const safeName = String(characterName || 'Character').trim() || 'Character';
+            const safeName = String(characterName || I18N.t('common.character')).trim() || I18N.t('common.character');//KNB
             const data = Array.isArray(combatData) ? { attacks: combatData } : (combatData && typeof combatData === 'object' ? combatData : {});
             const opts = options && typeof options === 'object' ? options : {};
             const viewKey = normalizeCombatViewKey(opts.view);
@@ -6430,8 +6491,8 @@ const CombatAssistant = (() => {
                 const ability = String(attack.abilityLabel || '').trim();
                 const actionOnly = !!String(attack.sendCommand || '').trim() && !String(attack.rollCommand || '').trim();
                 const attackType = actionOnly
-                    ? (String(attack.detailLabel || attack.actionType || 'Action').trim() || 'Action')
-                    : (String(attack.attackTypeLabel || attack.attackType || 'Attack').trim() || 'Attack');
+                    ? (String(attack.detailLabel || attack.actionType || I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular'))//KNB
+                    : (String(attack.attackTypeLabel || attack.attackType || I18N.t('actions.attack')).trim() || I18N.t('actions.attack'));//KNB
                 const rangeLabel = !actionOnly && /^(?:Ranged Attack|Ranged Save)$/i.test(attackType) ? String(attack.rangeLabel || '').trim() : '';
                 const details = Utils.escapeHtml(attackType) +
                     (ability ? (' <span style="color:rgb(155,155,155);font-weight:700;">[' + Utils.escapeHtml(ability) + ']</span>') : '') +
@@ -6458,7 +6519,7 @@ const CombatAssistant = (() => {
             const emptyText = viewKey === 'combat'
                 ? 'No usable combat actions were found on this character sheet.'
                 : 'No usable special actions were found on this character sheet.';
-            const titleSuffix = viewKey === 'combat' ? ' '+I18N.t('combat.COMBAT') : ' '+I18N.t('combat.SPECIALS');
+            const titleSuffix = viewKey === 'combat' ? ' '+I18N.t('combat.COMBAT') : ' '+I18N.t('combat.SPECIALS');//KNB
             const effectsHtml = viewKey === 'combat' ? this.combatEffectsListHtml(opts.effects, opts.tokenId) : '';
             const body = effectsHtml + (content || '<div style="text-align:center;color:rgb(170,170,170);font-size:11px;line-height:14px;padding:5px 0;">' + Utils.escapeHtml(emptyText) + '</div>');
             return this.characterSectionCard(safeName, titleSuffix, body, opts.characterId, '', opts);
@@ -6466,7 +6527,7 @@ const CombatAssistant = (() => {
 
         spellLevelTitle(level) {
             const safeLevel = Math.max(0, Math.min(9, Utils.toInt(level, 0)));
-            return safeLevel === 0 ? 'CANTRIPS' : ('LEVEL ' + String(safeLevel));
+            return safeLevel === 0 ? I18N.t('combat.cantrips') : (I18N.t('combat.spells_level')+' ' + String(safeLevel));//KNB
         },
 
         resourceBalanceHtml(current, max) {
@@ -6508,7 +6569,7 @@ const CombatAssistant = (() => {
                 const remainder = compact(raw
                     .replace(/^\s*concentration\s*,?\s*/i, '')
                     .replace(/^\s*up\s+to\s+/i, ''));
-                return remainder ? ('Conc. ' + remainder) : 'Conc.';
+                return remainder ? (I18N.t('actions.concentration')+' ' + remainder) : I18N.t('actions.concentration');
             }
             return compact(raw);
         },
@@ -7018,9 +7079,9 @@ const CombatAssistant = (() => {
             const navigationTableOpen = '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><colgroup><col style="width:50%;"><col style="width:50%;"></colgroup><tbody>';
             const tableClose = '</tbody></table>';
             const defaultButton = this.compactSettingButtonHtml({
-                label: I18N.t('config.RESET'),
+                label: I18N.t('config.RESET'),//KNB
                 width: 66,
-                command: '!combatAssistant defaults &#63;{'+I18N.t('config.RESET_tip')+'?|No,no|Yes,yes}',
+                command: '!combatAssistant defaults &#63;{'+I18N.t('config.RESET_tip')+'?|No,no|Yes,yes}',//KNB
                 tooltip: I18N.t('config.RESET_tip'),
                 backgroundColor: 'rgba(70,70,70,0.95)'
             });
@@ -7031,44 +7092,45 @@ const CombatAssistant = (() => {
                 const extraRows = renderRows(extraStart >= 0 ? mainFields.slice(extraStart) : []);
                 const navigationRows = [
                     [
-                        { page: 'combat', label: 'Combat', backgroundColor: 'rgba(150,55,65,0.32)', borderColor: 'rgba(210,90,105,0.70)' },
-                        { label: 'Spell Templates', command: '!combatAssistant spelltemplates', backgroundColor: 'rgba(30,120,150,0.32)', borderColor: 'rgba(75,190,220,0.70)' }
+                        { page: 'combat', label: I18N.t('config.COMBAT_PAGE'), backgroundColor: 'rgba(150,55,65,0.32)', borderColor: 'rgba(210,90,105,0.70)' },//KNB
+                        { label: I18N.t('config.TEMPLATES_PAGE'), command: '!combatAssistant spelltemplates', backgroundColor: 'rgba(30,120,150,0.32)', borderColor: 'rgba(75,190,220,0.70)' }//KNB
                     ],
                     [
-                        { page: 'turn', label: 'Turn Tracker', backgroundColor: 'rgba(50,90,170,0.32)', borderColor: 'rgba(95,145,235,0.70)' },
-                        { page: 'markers', label: 'Token Markers', backgroundColor: 'rgba(35,130,105,0.32)', borderColor: 'rgba(70,200,160,0.70)' }
+                        { page: 'turn', label: I18N.t('config.TURN_PAGE'), backgroundColor: 'rgba(50,90,170,0.32)', borderColor: 'rgba(95,145,235,0.70)' },//KNB
+                        { page: 'markers', label: I18N.t('config.MARKERS_PAGE'), backgroundColor: 'rgba(35,130,105,0.32)', borderColor: 'rgba(70,200,160,0.70)' }//KNB
                     ],
                     [
-                        { page: 'resources', label: 'Resource', backgroundColor: 'rgba(165,100,35,0.32)', borderColor: 'rgba(235,155,70,0.70)' },
-                        { page: 'privacy', label: 'Privacy', backgroundColor: 'rgba(105,70,155,0.32)', borderColor: 'rgba(165,115,220,0.70)' }
+                        { page: 'resources', label: I18N.t('config.RESOURCES_PAGE'), backgroundColor: 'rgba(165,100,35,0.32)', borderColor: 'rgba(235,155,70,0.70)' },//KNB
+                        { page: 'privacy', label: I18N.t('config.PRIVACY_PAGE'), backgroundColor: 'rgba(105,70,155,0.32)', borderColor: 'rgba(165,115,220,0.70)' }//KNB
                     ]
                 ];
                 const navigation = navigationRows.map((entries) => '<tr style="height:' + CONFIG_ROW_HEIGHT + 'px;">' + entries.map((entry) => {
                     const command = entry.command || ('!combatAssistant config ' + entry.page);
                     return '<td style="width:50%;height:' + CONFIG_ROW_HEIGHT + 'px;text-align:center;vertical-align:middle;padding:2px 1px;line-height:0;box-sizing:border-box;white-space:nowrap;">' +
                         this.compactSettingButtonHtml({
-                            label: entry.label, command, tooltip: 'Open ' + (pageTitles[entry.page] || 'Spell Templates'),
+                            //label: entry.label, command, tooltip: 'Open ' + (pageTitles[entry.page] || 'Spell Templates'),//KNB
+                            label: entry.label, command, tooltip: I18N.t('common.open')+' ' + entry.label,//KNB
                             widthCss: '76.8%', backgroundColor: entry.backgroundColor, borderColor: entry.borderColor
                         }) + '</td>';
                 }).join('') + '</tr>').join('');
                 const body =
-                    navigationTableOpen + this.settingsSectionRowHtml('Sub Menus', 2) + navigation + tableClose +
-                    settingsTableOpen + this.settingsSectionRowHtml('Main', 2) + primaryRows + tableClose +
+                    navigationTableOpen + this.settingsSectionRowHtml(I18N.t('config.SUB_MENUS'), 2) + navigation + tableClose +//KNB
+                    settingsTableOpen + this.settingsSectionRowHtml(I18N.t('config.MAIN'), 2) + primaryRows + tableClose +//KNB
                     settingsTableOpen + extraRows + tableClose +
                     '<div style="height:1px;background:rgba(125,125,125,0.65);margin:7px 0 6px 0;"></div>' +
                     '<div style="text-align:center;padding:0 0 2px 0;">' + defaultButton + '</div>';
                 const importControl = this.settingsTitleControlHtml('!combatAssistant config-import', 'Import', '&#128229;');
                 const exportControl = this.settingsTitleControlHtml('!combatAssistant config-export', 'Export', '&#128228;');
                 R20.whisper(target || 'GM', Html.card({
-                    title: META.NAME + ' Settings',
+                    title: META.NAME + ' '+I18N.t('config.SETTINGS'),//KNB
                     body,
-                    buildOptions: { titleHtml: this.settingsTitleHtml(META.NAME + ' Settings', importControl, exportControl), bodyAlign: 'left' }
+                    buildOptions: { titleHtml: this.settingsTitleHtml(META.NAME + ' '+I18N.t('config.SETTINGS'), importControl, exportControl), bodyAlign: 'left' }//KNB
                 }));
                 return;
             }
-            const title = pageTitles[pageKey] || (META.NAME + ' Settings');
+            const title = pageTitles[pageKey] || (META.NAME + ' '+I18N.t('config.SETTINGS'));//KNB
             const body = (pageKey === 'markers' ? markerTableOpen : settingsTableOpen) + renderRows(RuntimeConfig.fields(pageKey)) + tableClose;
-            const backControl = this.settingsTitleControlHtml('!combatAssistant config', 'Back to Settings', '&#128281;');
+            const backControl = this.settingsTitleControlHtml('!combatAssistant config', I18N.t('config.BACK_TO')+I18N.t('config.SETTINGS'), '&#128281;');//KNB
             R20.whisper(target || 'GM', Html.card({
                 title,
                 body,
@@ -7147,7 +7209,7 @@ const CombatAssistant = (() => {
             const macroHelp = '<div style="padding:3px 4px 0 4px;color:rgb(145,145,145);font-size:9px;line-height:11px;text-align:center;">Apply/End accept plain chat text, HTML markup, <b>!</b> API commands, <b>#</b> named macros, <b>&#64;{}</b> attributes, <b>&#64;^{}</b> deferred attributes, <b>&#37;{}</b> abilities, <b>&#63;{}</b> queries, and native <b>~</b> abilities. Apply delivers a single-use player card when the caster has a player controller plus an unlimited GM card; End keeps the canonical direct/client-required execution path. For multiple resolved targets, <b style="color:rgb(235,215,140);">{target}</b> resolves independently. Fields: <b style="color:rgb(235,215,140);">{source} {target} {range} {duration} {spellname} {reason}</b> and other supported spell fields.</div>';
             const body = panelHtml('Templates', templates.length, templateAdd, templateRows, 'No spell templates configured.', '') +
                 panelHtml('Macro', macros.length, macroAdd, macroRows, 'No Spell Macros configured.', macroHelp);
-            const backControl = this.settingsTitleControlHtml('!combatAssistant config', 'Back to Settings', '&#128281;');
+            const backControl = this.settingsTitleControlHtml('!combatAssistant config', I18N.t('config.BACK_TO')+I18N.t('config.SETTINGS'), '&#128281;');//KNB
             R20.whisper(target || 'GM', Html.card({
                 title: 'Spell Templates',
                 body,
@@ -15853,9 +15915,9 @@ const CombatAssistant = (() => {
                 const settings = root && root.settings && typeof root.settings === 'object' ? root.settings : {};
                 const rolls = settings.rolls && typeof settings.rolls === 'object' ? settings.rolls : {};
                 return [
-                    { key: 'whisper', label: I18N.t('actions_card.whisper'), enabled: String(rolls.privacy || 'public').trim().toLowerCase() !== 'public', tip: I18N.t('actions_card.whisper_tip') },
-                    { key: 'roll-damage', label: I18N.t('actions_card.roll-damage'), enabled: settings.rollDamageAutomatic === true, tip: I18N.t('actions_card.roll-damage_tip') },
-                    { key: 'dex-tiebreaker', label: I18N.t('actions_card.dex-tiebreaker'), enabled: settings.addDexTiebreaker === true, tip: I18N.t('actions_card.dex-tiebreaker_tip') }
+                    { key: 'whisper', label: I18N.t('actions.whisper'), enabled: String(rolls.privacy || 'public').trim().toLowerCase() !== 'public', tip: I18N.t('actions.whisper_tip') },//KNB
+                    { key: 'roll-damage', label: I18N.t('actions.roll-damage'), enabled: settings.rollDamageAutomatic === true, tip: I18N.t('actions.roll-damage_tip') },//KNB
+                    { key: 'dex-tiebreaker', label: I18N.t('actions.dex-tiebreaker'), enabled: settings.addDexTiebreaker === true, tip: I18N.t('actions.dex-tiebreaker_tip') }//KNB
                 ];
             }
             const attrs = Array.isArray(suppliedAttrs) ? suppliedAttrs : R20.getCharacterAttributes(safeCharacterId);
@@ -15869,9 +15931,9 @@ const CombatAssistant = (() => {
             const dtype = String(map.dtype || '').trim().toLowerCase();
             const tie = String(map.init_tiebreaker || '').trim().toLowerCase();
             return [
-                { key: 'whisper', label: I18N.t('actions_card.whisper'), enabled: wtype === '/w gm', tip: I18N.t('actions_card.whisper_tip') },
-                { key: 'roll-damage', label: I18N.t('actions_card.roll-damage'), enabled: dtype === 'full', tip: I18N.t('actions_card.roll-damage_tip') },
-                { key: 'dex-tiebreaker', label: I18N.t('actions_card.dex-tiebreaker'), enabled: !!tie && tie !== '0', tip: I18N.t('actions_card.dex-tiebreaker_tip') }
+                { key: 'whisper', label: I18N.t('actions.whisper'), enabled: wtype === '/w gm', tip: I18N.t('actions.whisper_tip') },
+                { key: 'roll-damage', label: I18N.t('actions.roll-damage'), enabled: dtype === 'full', tip: I18N.t('actions.roll-damage_tip') },
+                { key: 'dex-tiebreaker', label: I18N.t('actions.dex-tiebreaker'), enabled: !!tie && tie !== '0', tip: I18N.t('actions.dex-tiebreaker_tip') }
             ];
         },
 
