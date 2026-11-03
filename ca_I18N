@@ -78,15 +78,32 @@ const CombatAssistant = (() => {
                     back: 'BACK',
                     toggle: 'TOGGLE',
                     cancel: 'CAN',
-                    get_narrative: 'Get',
-                    set_narrative: 'Set',
-                    edit_narrative: 'Edit',
-                    back_narrative: 'Back',
-                    toggle_narrative: 'Toggle',
-                    cancel_narrative: 'Cancel',
+					roll: 'ROLL',
+                    modifier: 'Mod.',
+                    savingthrow: 'ST',
+                    get_narrative: 'get',
+                    set_narrative: 'set',
+                    edit_narrative: 'edit',
+                    back_narrative: 'back',
+                    toggle_narrative: 'toggle',
+                    cancel_narrative: 'cancel',
+					roll_narrative: 'Roll ',
+                    modifier_narrative: 'modifier',
+                    savingthrow_narrative: 'saving throw',
+                    savingthrow_narrative_short: 'Save',
+					initiative: 'Initiative',
+					initiative_narrative: 'initiative',
+					hptemp: 'HP Temp',
+					hptemp_narrative: 'temporary hit points',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'No selected token.',
+                    WRONG_NUMBER_MIN: ' must be a whole number from ',
+                    WRONG_NUMBER_MAX: ' to ',
+                    WRONG_NUMBER_MAX_UNDEF: ' or greater',
+                    WRONG_TOKEN_MARKER_ID: ' marker must be 1-80 letters, digits, spaces, underscores, hyphens, or colons.',
+                    WRONG_URL_TITLE: 'Invalid URL', 
+                    WRONG_URL: 'Only images uploaded to Roll20 are supported here. Use a URL that starts with https://files.d20.io/images/.',
                 },
                 combat: {
                     COMBAT: 'Combat',
@@ -103,6 +120,9 @@ const CombatAssistant = (() => {
                     MYTHIC_ACTION: 'Mythic Action',
                 },
                 abilities: {
+                    title_plural: 'Attributes',
+                    title_singular: 'Attribute',
+                    value: 'Stat',
                     strength: 'Strength',
                     dexterity: 'Dexterity',
                     constitution: 'Constitution',
@@ -115,8 +135,14 @@ const CombatAssistant = (() => {
                     intelligence_short: 'INT',
                     wisdom_short: 'WIS',
                     charisma_short: 'CHA',
+                    check: 'Roll ',
+                    check_suffix: ' ability check',
+                    savingthrow: 'Roll ',
+                    savingthrow_suffix: ' saving throw',
                 },
                 skills: {
+                    title_plural: 'Skills',
+                    title_singular: 'Skill',
                     acrobatics: 'Acrobatics',
                     animal_handling: 'Animal Handling',
                     arcana: 'Arcana',
@@ -280,15 +306,32 @@ const CombatAssistant = (() => {
                     back: 'RET',
                     toggle: 'INV',
                     cancel: 'ANN',
-                    get_narrative: 'Lire',
-                    set_narrative: 'Ecrire',
-                    edit_narrative: 'Modifier',
-                    back_narrative: 'Retour',
-                    toggle_narrative: 'Inverser',
-                    cancel_narrative: 'Annuler',
+					roll: 'JET',
+                    modifier: 'Mod.',
+                    savingthrow: 'JS',
+                    get_narrative: 'lire',
+                    set_narrative: 'ecrire',
+                    edit_narrative: 'modifier',
+                    back_narrative: 'retour',
+                    toggle_narrative: 'inverser',
+                    cancel_narrative: 'annuler',
+					roll_narrative: 'Faire un jet ',
+                    modifier_narrative: 'modificateur',
+                    savingthrow_narrative: 'jet sauveur',
+                    savingthrow_narrative_short: 'JS',
+					initiative: 'Initiative',
+					initiative_narrative: 'initiative',
+					hptemp: 'PV Temp',
+					hptemp_narrative: 'points de vie temporaires',
                 },
                 errors: {
                     NO_SELECTED_TOKEN: 'Aucun jeton sélectionné.',
+                    WRONG_NUMBER_MIN: ' doit être un nombre entier entre ',
+                    WRONG_NUMBER_MAX: ' et ',
+                    WRONG_NUMBER_MAX_UNDEF: ' ou supérieur',
+                    WRONG_TOKEN_MARKER_ID: ': cet ID de marqueur doit être composé de 1-80 lettres, chiffres, espaces, soulignés, tirets, ou deux-points.',
+                    WRONG_URL_TITLE: 'URL invalide', 
+                    WRONG_URL: 'Seules les URL d\'images téléchargées sur Roll20 peuvent être utilisées ici. L\'URL doit commencer par https://files.d20.io/images/...',
                 },
                 combat: {
                     COMBAT: 'Combat',
@@ -305,6 +348,9 @@ const CombatAssistant = (() => {
                     MYTHIC_ACTION: 'Action mythique',
                 },
                 abilities: {
+                    title_plural: 'Attributs',
+                    title_singular: 'Attribut',
+                    value: 'Val',
                     strength: 'Force',
                     dexterity: 'Dextérité',
                     constitution: 'Constitution',
@@ -317,8 +363,14 @@ const CombatAssistant = (() => {
                     intelligence_short: 'INT',
                     wisdom_short: 'SAG',
                     charisma_short: 'CHA',
+                    check: 'Faire un test de ',
+                    check_suffix: '',
+                    savingthrow: 'Faire un jet sauveur de ',
+                    savingthrow_suffix: '',
                 },
                 skills: {
+                    title_plural: 'Compétences',
+                    title_singular: 'Compétence',
                     acrobatics: 'Acrobaties',
                     animal_handling: 'Dressage',
                     arcana: 'Arcanes',
@@ -1622,7 +1674,7 @@ const CombatAssistant = (() => {
         },
 
         abilityShortLabel(value) {
-            return ABILITIES[this.normalizeAbilityName(value)]() || '';//KNB
+			return (ABILITIES[this.normalizeAbilityName(value)] || (function () { return '' }))();//KNB
         },
 
         abilityScoreToModifier(score) {
@@ -1917,28 +1969,28 @@ const CombatAssistant = (() => {
                 const bar = Utils.toInt(raw, null);
                 const min = field.type === 'bar0' ? 0 : 1;
                 if (bar === null || String(bar) !== raw || bar < min || bar > 4) {
-                    return { ok: false, message: field.label() + ' must be a whole number from ' + min + ' to 4.' };//KNB
+                    return { ok: false, message: field.label() + I18N.t('errors.WRONG_NUMBER_MIN') + min + I18N.t('errors.WRONG_NUMBER_MAX')+'4'+'.' };//KNB
                 }
             }
             if (field.type === 'percent') {
                 const raw = String(value === undefined || value === null ? '' : value).trim();
                 const pct = Utils.toInt(raw, null);
                 if (pct === null || String(pct) !== raw || pct < 0 || pct > 100) {
-                    return { ok: false, message: field.label() + ' must be a whole number from 0 to 100.' };//KNB
+                    return { ok: false, message: field.label() + I18N.t('errors.WRONG_NUMBER_MIN')+'0'+I18N.t('errors.WRONG_NUMBER_MAX')+'100'+'.' };//KNB
                 }
             }
             if (field.type === 'number') {
                 const raw = String(value === undefined || value === null ? '' : value).trim();
                 const number = Utils.toInt(raw, null);
                 if (number === null || String(number) !== raw || number < 0) {
-                    return { ok: false, message: field.label() + ' must be a whole number of 0 or greater.' };//KNB
+                    return { ok: false, message: field.label() + I18N.t('errors.WRONG_NUMBER_MIN')+'0'+I18N.t('errors.WRONG_NUMBER_MAX_UNDEF')+'.' };//KNB
                 }
             }
             if (field.type === 'marker' && !/^[a-z0-9 _:-]{1,80}$/i.test(String(value || '').trim())) {
-                return { ok: false, message: field.label() + ' marker must be 1-80 letters, digits, spaces, underscores, hyphens, or colons.' };//KNB
+                return { ok: false, message: field.label() + I18N.t('errors.WRONG_TOKEN_MARKER_ID') };//KNB
             }
             if (field.type === 'roll20image' && !Utils.isRoll20FileUrl(value)) {
-                return { ok: false, title: 'Invalid URL', message: 'Only images uploaded to Roll20 are supported here. Use a URL that starts with https://files.d20.io/images/.' };
+                return { ok: false, title: I18N.t('errors.WRONG_URL_TITLE'), message: I18N.t('errors.WRONG_URL') };//KNB
             }
             return { ok: true, value: this.normalizeValue(field, value) };
         },
@@ -5847,17 +5899,17 @@ const CombatAssistant = (() => {
             const opts = options || {};
             if ((!RuntimeConfig.get('HANDLE_ACTIONS') && !opts.forceActions) || !info || !info.tokenId) return '';
             const secondaryButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.disengage'), 'disengage', { tooltip: I18N.t('actions_card.disengage_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })
-                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat-special'), 'combat-special', { tooltip: I18N.t('actions_card.combat-special_tip'), backgroundColor: 'rgba(45,105,175,0.95)' });
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.disengage'), 'disengage', { tooltip: I18N.t('actions_card.disengage_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat-special'), 'combat-special', { tooltip: I18N.t('actions_card.combat-special_tip'), backgroundColor: 'rgba(45,105,175,0.95)' });//KNB
             const centerButton = opts.compactSheet === true
-                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dodge'), 'dodge', { tooltip: I18N.t('actions_card.dodge_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })
-                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.sheet'), 'sheet', { tooltip: I18N.t('actions_card.sheet_tip'), backgroundColor: 'rgba(190,155,30,0.75)' });
+                ? this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dodge'), 'dodge', { tooltip: I18N.t('actions_card.dodge_tip'), backgroundColor: 'rgba(45,45,45,0.95)' })//KNB
+                : this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.sheet'), 'sheet', { tooltip: I18N.t('actions_card.sheet_tip'), backgroundColor: 'rgba(190,155,30,0.75)' });//KNB
             const buttons = [
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dash'), 'dash', { tooltip: I18N.t('actions_card.dash_tip'), backgroundColor: 'rgba(45,45,45,0.95)' }),
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.dash'), 'dash', { tooltip: I18N.t('actions_card.dash_tip'), backgroundColor: 'rgba(45,45,45,0.95)' }),//KNB
                 secondaryButton,
                 centerButton,
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat'), 'combat', { tooltip: I18N.t('actions_card.combat_tip'), backgroundColor: 'rgba(105,35,35,0.95)' }),
-                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.spells'), 'spells', { tooltip: I18N.t('actions_card.spells_tip'), backgroundColor: 'rgba(65,55,120,0.95)' })
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.combat'), 'combat', { tooltip: I18N.t('actions_card.combat_tip'), backgroundColor: 'rgba(105,35,35,0.95)' }),//KNB
+                this.turnCardButtonHtml(info.tokenId, I18N.t('actions_card.spells'), 'spells', { tooltip: I18N.t('actions_card.spells_tip'), backgroundColor: 'rgba(65,55,120,0.95)' })//KNB
             ];
             return '<div style="text-align:center;white-space:normal;line-height:normal;">' +
                 buttons.map((button, index) => (index ? '<span style="display:inline-block;width:3px;height:1px;"></span>' : '') + button).join('') +
@@ -5966,10 +6018,10 @@ const CombatAssistant = (() => {
         characterSheetAbilityHeaderHtml() {
             const cell = (label, align, width) => '<td style="width:' + width + ';height:14px;padding:2px;text-align:' + align + ';vertical-align:middle;color:rgb(155,155,155);font-size:10px;line-height:10px;font-weight:700;white-space:nowrap;">' + label + '</td>';
             return '<tr>' +
-                cell('Attribute', 'left', '40%') +
-                cell('Stat', 'center', '20%') +
-                cell('Mod', 'center', '20%') +
-                cell('Save', 'center', '20%') +
+                cell(I18N.t('abilities.title_singular'), 'left', '40%') +//KNB
+                cell(I18N.t('abilities.value'), 'center', '20%') +//KNB
+                cell(I18N.t('common.modifier'), 'center', '20%') +//KNB
+                cell(I18N.t('common.savingthrow'), 'center', '20%') +//KNB
             '</tr>';
         },
 
@@ -5990,8 +6042,8 @@ const CombatAssistant = (() => {
             const saveColor = data.saveProficient ? 'rgb(255,130,130)' : 'rgb(255,255,255)';
             const checkMarker = this.characterSheetRollMarkerHtml(data.checkMode);
             const saveMarker = this.characterSheetRollMarkerHtml(data.saveMode);
-            const checkLink = this.characterSheetRollLinkHtml(modifier, data.checkCommand, 'rgb(255,255,255)', checkMarker, 'Roll ' + label + ' ability check');
-            const saveLink = this.characterSheetRollLinkHtml(save, data.saveCommand, saveColor, saveMarker, 'Roll ' + label + ' saving throw');
+            const checkLink = this.characterSheetRollLinkHtml(modifier, data.checkCommand, 'rgb(255,255,255)', checkMarker, I18N.t('abilities.check') + label + I18N.t('abilities.check_suffix'));//KNB
+            const saveLink = this.characterSheetRollLinkHtml(save, data.saveCommand, saveColor, saveMarker, I18N.t('abilities.savingthrow') + label + I18N.t('abilities.savingthrow_suffix'));//KNB
             return '<tr>' +
                 '<td style="width:40%;height:16px;text-align:left;vertical-align:middle;padding:2px;color:rgb(235,215,140);font-size:10px;line-height:12px;font-weight:700;white-space:nowrap;">' + Utils.escapeHtml(label) + '</td>' +
                 '<td style="width:20%;height:16px;text-align:center;vertical-align:middle;padding:2px;color:rgb(255,255,255);font-size:10px;line-height:12px;font-weight:900;white-space:nowrap;">' + Utils.escapeHtml(score) + '</td>' +
@@ -6002,14 +6054,14 @@ const CombatAssistant = (() => {
 
         characterSheetSkillHeaderHtml() {
             return '<tr>' +
-                '<td style="width:72%;height:14px;padding:2px;text-align:left;vertical-align:middle;color:rgb(155,155,155);font-size:10px;line-height:10px;font-weight:700;white-space:nowrap;">Skill</td>' +
-                '<td style="width:28%;height:14px;padding:2px;text-align:center;vertical-align:middle;color:rgb(155,155,155);font-size:10px;line-height:10px;font-weight:700;white-space:nowrap;">Mod</td>' +
+                '<td style="width:72%;height:14px;padding:2px;text-align:left;vertical-align:middle;color:rgb(155,155,155);font-size:10px;line-height:10px;font-weight:700;white-space:nowrap;">'+I18N.t('skills.title_singular')+'</td>' +//KNB
+                '<td style="width:28%;height:14px;padding:2px;text-align:center;vertical-align:middle;color:rgb(155,155,155);font-size:10px;line-height:10px;font-weight:700;white-space:nowrap;">'+I18N.t('common.modifier')+'</td>' +//KNB
             '</tr>';
         },
 
         characterSheetSkillRowHtml(profile) {
             const data = profile || {};
-            const label = String(data.label || data.skill || 'Skill');
+            const label = String(data.label || data.skill || I18N.t('skills.title_singular'));//KNB
             const modifier = Utils.formatSigned(Utils.toInt(data.modifier, 0));
             const valueColor = data.proficient ? 'rgb(255,130,130)' : 'rgb(255,255,255)';
             const marker = this.characterSheetRollMarkerHtml(data.mode);
@@ -6062,14 +6114,14 @@ const CombatAssistant = (() => {
                 '</tbody></table>' +
             '</div>';
             const left = buildSide([
-                ['Strength', profiles.strength],
-                ['Dexterity', profiles.dexterity],
-                ['Constitution', profiles.constitution]
+                [I18N.t('abilities.strength'), profiles.strength],//KNB
+                [I18N.t('abilities.dexterity'), profiles.dexterity],//KNB
+                [I18N.t('abilities.constitution'), profiles.constitution]//KNB
             ]);
             const right = buildSide([
-                ['Intelligence', profiles.intelligence],
-                ['Wisdom', profiles.wisdom],
-                ['Charisma', profiles.charisma]
+                [I18N.t('abilities.intelligence'), profiles.intelligence],//KNB
+                [I18N.t('abilities.wisdom'), profiles.wisdom],//KNB
+                [I18N.t('abilities.charisma'), profiles.charisma]//KNB
             ]);
             const actions = this.buildTurnActionsHtml(info, { forceActions: true, compactSheet: true });
             const quickBox = (label, value, command, labelColor, valueColor, tooltip, marker) => {
@@ -6094,9 +6146,9 @@ const CombatAssistant = (() => {
             const initiativeMarker = this.characterSheetRollMarkerHtml(info && info.initiativeMode);
             const tempHp = String(Math.max(0, Utils.toInt(info && info.tempHp, 0)));
             const quickStats = '<table style="width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:5px;"><tbody><tr>' +
-                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox('Initiative', initiativeValue, initiativeCommand, 'rgb(235,215,140)', 'rgb(255,255,255)', 'Roll initiative', initiativeMarker) + '</td>' +
+                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox(I18N.t('common.initiative'), initiativeValue, initiativeCommand, 'rgb(235,215,140)', 'rgb(255,255,255)', I18N.t('common.roll_narrative')+I18N.t('common.initiative_narrative'), initiativeMarker) + '</td>' +//KNB
                 '<td style="width:2%;padding:0;"></td>' +
-                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox('HP Temp', tempHp, '', 'rgb(235,215,140)', 'rgb(255,105,180)', 'Temporary Hit Points', '') + '</td>' +
+                '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + quickBox(I18N.t('common.hptemp'), tempHp, '', 'rgb(235,215,140)', 'rgb(255,105,180)', I18N.t('common.hptemp_narrative'), '') + '</td>' +//KNB
             '</tr></tbody></table>';
             const stats = '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><tbody><tr>' +
                 '<td style="width:49%;text-align:left;vertical-align:top;padding:0;">' + left + '</td>' +
