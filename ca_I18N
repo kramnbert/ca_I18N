@@ -102,6 +102,7 @@ const CombatAssistant = (() => {
                     hptemp: 'HP Temp',
                     hptemp_narrative: 'temporary hit points',
                     damage: 'Damage',
+                    damage_short: 'Dmg',
 					character: 'Character',
 					open: 'Open',
                 },
@@ -152,6 +153,22 @@ const CombatAssistant = (() => {
                     savingthrow: 'Roll ',
                     savingthrow_suffix: ' saving throw',
                 },
+				damage: {
+                    normal: '-',
+					acid: 'Acid',
+					bludgeoning: 'Bludgeoning',
+					cold: 'Cold',
+					fire: 'Fire',
+					force: 'Force',
+					lightning: 'Lightning',
+					necrotic: 'Necrotic',
+					piercing: 'Piercing',
+					poison: 'Poison',
+					psychic: 'Psychic',
+					radiant: 'Radiant',
+					slashing: 'Slashing',
+					thunder: 'Thunder',
+				},
                 skills: {
                     title_plural: 'Skills',
                     title_singular: 'Skill',
@@ -326,6 +343,16 @@ const CombatAssistant = (() => {
                         TOKEN_IMAGE_URL: 'Token Image URL',
                     LANGUAGE: 'Language', LANGUAGE_tip: 'Set the language used by Combat Assistant.',
 
+                    ADD_TEMPLATE_tip: 'Add a spell template',
+                    EDIT_TEMPLATE_tip: 'Edit this Spell Template',
+					REMOVE_TEMPLATE_tip: 'Remove this Spell Template',
+                    EDIT_MACRO_tip: 'Edit this Spell Macro',
+                    REMOVE_MACRO_tip: 'Remove this Spell Macro',
+					ALWAYS_RUN_MACRO_QUESTION: 'Run Macro even if the target is not affected?',
+					ALWAYS_RUN_MACRO: 'Runs even when the target is not affected.',
+                    APPLY_MACRO: 'Apply: ',
+                    END_MACRO: 'End: ',
+
                     RESET: 'Default', RESET_tip: 'Reset all persistent Combat Assistant settings to default',
                 }
             },
@@ -372,6 +399,7 @@ const CombatAssistant = (() => {
                     hptemp: 'PV Temp',
                     hptemp_narrative: 'points de vie temporaires',
                     damage: 'Dégâts',
+                    damage_short: 'Dég.',
 					character: 'Personnage',
 					open: 'Montrer',
                 },
@@ -422,6 +450,22 @@ const CombatAssistant = (() => {
                     savingthrow: 'Faire un jet sauveur de ',
                     savingthrow_suffix: '',
                 },
+				damage: {
+                    normal: '-',
+					acid: 'Acide',
+					bludgeoning: 'Contondant',
+					cold: 'Froid',
+					fire: 'Feu',
+					force: 'Force',
+					lightning: 'Eclair',
+					necrotic: 'Necrotique',
+					piercing: 'Perforant',
+					poison: 'Poison',
+					psychic: 'Psychique',
+					radiant: 'Radiant',
+					slashing: 'Slashing',
+					thunder: 'Tonnerre',
+				},
                 skills: {
                     title_plural: 'Compétences',
                     title_singular: 'Compétence',
@@ -595,6 +639,16 @@ const CombatAssistant = (() => {
                     GET_TOKEN_IMAGE_URL: 'Afficher URL Image du jeton', GET_TOKEN_IMAGE_URL_tip: 'Sélectionner un et un seul jeton et affiche l\'URL de son image.',
                         TOKEN_IMAGE_URL: 'URL Image du jeton',
                     LANGUAGE: 'Langue', LANGUAGE_tip: 'Langue utilisée par Combat Assistant.',
+
+                    ADD_TEMPLATE_tip: 'Ajouter un Modèle de Sort',
+					EDIT_TEMPLATE_tip: 'Modifier ce Modèle de Sort',
+					REMOVE_TEMPLATE_tip: 'Supprimer ce Modèle de Sort',
+                    EDIT_MACRO_tip: 'Modifier cette Macro de Sort',
+                    REMOVE_MACRO_tip: 'Supprimer cette Macro de Sort',
+					ALWAYS_RUN_MACRO_QUESTION: 'Appliquer la macro même si la cible n\'est pas affectée?',
+					ALWAYS_RUN_MACRO: 'Est appliquée même si la cible n\'est pas affectée.',
+                    APPLY_MACRO: 'Appliquer: ',
+                    END_MACRO: 'Fin: ',
 
                     RESET: 'Réinit.', RESET_tip: 'Réinitialiser toutes les valeurs de configuration persistantes de Combat Assistant avec leurs valeurs par défaut',
                 }
@@ -7164,14 +7218,14 @@ const CombatAssistant = (() => {
                 const keyPayload = Utils.encodeJsonPayload({ key: entry.key });
                 const preview = this.chatTokenImageHtml(entry.url, 15, '', 2) || '<span style="display:block;width:15px;height:15px;"></span>';
                 const editButton = this.compactSettingButtonHtml({
-                    label: 'EDIT',
+                    label: I18N.t('common.edit'),//KNB
                     command: '!combatAssistant spelltemplate-edit ' + keyPayload + ' ||| &#63;{Spell Name|' + Utils.roll20QueryDefaultSafe(entry.name) + '} ||| &#63;{Roll20 URL|' + Utils.roll20QueryDefaultSafe(entry.url) + '}',
-                    tooltip: 'Edit this spell template', backgroundColor: 'rgba(0,86,145,0.95)'
+                    tooltip: I18N.t('config.EDIT_TEMPLATE_tip'), backgroundColor: 'rgba(0,86,145,0.95)'//KNB
                 });
                 const removeButton = this.compactSettingButtonHtml({
                     label: 'X', width: 15, height: 15,
                     command: '!combatAssistant spelltemplate-remove ' + keyPayload,
-                    tooltip: 'Remove this spell template', backgroundColor: 'rgba(125,35,35,0.95)'
+                    tooltip: I18N.t('config.REMOVE_TEMPLATE_tip'), backgroundColor: 'rgba(125,35,35,0.95)'//KNB
                 });
                 const controls = '<span style="display:inline-block;vertical-align:middle;">' + preview + '</span>' +
                     '<span style="display:inline-block;vertical-align:middle;margin-left:2px;">' + editButton + '</span>' +
@@ -7181,50 +7235,50 @@ const CombatAssistant = (() => {
             const macroRows = macros.map((entry) => {
                 const keyPayload = Utils.encodeJsonPayload({ key: entry.key });
                 const applyFailureQuery = this.queryOptionsWithDefault(
-                    'Run Apply Macro even if the target is not affected?',
+					I18N.t('config.ALWAYS_RUN_MACRO_QUESTION'),//KNB
                     entry.applyOnFailure ? 'yes' : 'no',
-                    [['No', 'no'], ['Yes', 'yes']]
+                    [[I18N.t('common.no'), 'no'], [I18N.t('common.yes'), 'yes']]//KNB
                 );
                 const editButton = this.compactSettingButtonHtml({
-                    label: 'EDIT',
+                    label: I18N.t('common.edit'),//KNB
                     command: '!combatAssistant spellmacro-edit ' + keyPayload + ' ||| &#63;{Spell Name|' + Utils.roll20QueryDefaultSafe(entry.name) + '} ||| &#63;{Apply Text / Macro|' + Utils.roll20QueryDefaultSafe(entry.command) + '} ||| ' + applyFailureQuery + ' ||| &#63;{End Text / Macro|' + Utils.roll20QueryDefaultSafe(entry.endCommand) + '}',
-                    tooltip: 'Edit this Spell Macro', backgroundColor: 'rgba(0,86,145,0.95)'
+                    tooltip: I18N.t('config.EDIT_MACRO_tip'), backgroundColor: 'rgba(0,86,145,0.95)'//KNB
                 });
                 const removeButton = this.compactSettingButtonHtml({
                     label: 'X', width: 15, height: 15,
                     command: '!combatAssistant spellmacro-remove ' + keyPayload,
-                    tooltip: 'Remove this Spell Macro', backgroundColor: 'rgba(125,35,35,0.95)'
+                    tooltip: I18N.t('config.REMOVE_MACRO_tip'), backgroundColor: 'rgba(125,35,35,0.95)'//KNB
                 });
                 const applyFlag = entry.command
-                    ? '<span title="' + Utils.attrSafe('Apply: ' + entry.command + (entry.applyOnFailure ? ' | Runs even when the target is not affected.' : '')) + '" style="display:inline-block;color:rgb(90,220,120);font-size:11px;font-weight:900;line-height:' + CONFIG_ROW_HEIGHT + 'px;">A</span>'
+                    ? '<span title="' + Utils.attrSafe(I18N.t('config.APPLY_MACRO') + entry.command + (entry.applyOnFailure ? ' | '+I18N.t('config.ALWAYS_RUN_MACRO') : '')) + '" style="display:inline-block;color:rgb(90,220,120);font-size:11px;font-weight:900;line-height:' + CONFIG_ROW_HEIGHT + 'px;">A</span>'//KNB
                     : '';
                 const endFlag = entry.endCommand
-                    ? '<span title="' + Utils.attrSafe('End: ' + entry.endCommand) + '" style="display:inline-block;margin-left:' + (entry.command ? '2' : '0') + 'px;color:rgb(230,150,70);font-size:11px;font-weight:900;line-height:' + CONFIG_ROW_HEIGHT + 'px;">E</span>'
+                    ? '<span title="' + Utils.attrSafe(I18N.t('config.END_MACRO') + entry.endCommand) + '" style="display:inline-block;margin-left:' + (entry.command ? '2' : '0') + 'px;color:rgb(230,150,70);font-size:11px;font-weight:900;line-height:' + CONFIG_ROW_HEIGHT + 'px;">E</span>'//KNB
                     : '';
                 const controls = '<span style="display:inline-block;vertical-align:middle;">' + applyFlag + endFlag + '</span>' +
                     '<span style="display:inline-block;vertical-align:middle;margin-left:2px;">' + editButton + '</span>' +
                     '<span style="display:inline-block;vertical-align:middle;margin-left:2px;">' + removeButton + '</span>';
                 return entryRowHtml(entry.name, controls);
             }).join('');
-            const templateAdd = addButton('!combatAssistant spelltemplate-add &#63;{Spell Name} ||| &#63;{Roll20 URL}', 'Add a spell template');
+            const templateAdd = addButton('!combatAssistant spelltemplate-add &#63;{Spell Name} ||| &#63;{Roll20 URL}', I18N.t('config.ADD_TEMPLATE_tip'));//KNB
             const macroAdd = addButton('!combatAssistant spellmacro-add &#63;{Spell Name} ||| &#63;{Apply Text / Macro} ||| &#63;{Run Apply Macro even if the target is not affected?|No,no|Yes,yes} ||| &#63;{End Text / Macro|}', 'Add chat text, API commands, Roll20 references, queries, or native ability commands for a spell');
             const macroHelp = '<div style="padding:3px 4px 0 4px;color:rgb(145,145,145);font-size:9px;line-height:11px;text-align:center;">Apply/End accept plain chat text, HTML markup, <b>!</b> API commands, <b>#</b> named macros, <b>&#64;{}</b> attributes, <b>&#64;^{}</b> deferred attributes, <b>&#37;{}</b> abilities, <b>&#63;{}</b> queries, and native <b>~</b> abilities. Apply delivers a single-use player card when the caster has a player controller plus an unlimited GM card; End keeps the canonical direct/client-required execution path. For multiple resolved targets, <b style="color:rgb(235,215,140);">{target}</b> resolves independently. Fields: <b style="color:rgb(235,215,140);">{source} {target} {range} {duration} {spellname} {reason}</b> and other supported spell fields.</div>';
             const body = panelHtml('Templates', templates.length, templateAdd, templateRows, 'No spell templates configured.', '') +
                 panelHtml('Macro', macros.length, macroAdd, macroRows, 'No Spell Macros configured.', macroHelp);
             const backControl = this.settingsTitleControlHtml('!combatAssistant config', I18N.t('config.BACK_TO')+I18N.t('config.SETTINGS'), '&#128281;');//KNB
             R20.whisper(target || 'GM', Html.card({
-                title: 'Spell Templates',
+                title: I18N.t('config.TEMPLATES_PAGE'),
                 body,
-                buildOptions: { titleHtml: this.settingsTitleHtml('Spell Templates', '', backControl), bodyAlign: 'left' }
+                buildOptions: { titleHtml: this.settingsTitleHtml(I18N.t('config.TEMPLATES_PAGE'), '', backControl), bodyAlign: 'left' }
             }));
         },
 
         showMenu(target) {
-            const damageTypes = '-,normal|Acid,acid|Bludgeoning,bludgeoning|Cold,cold|Fire,fire|Force,force|Lightning,lightning|Necrotic,necrotic|Piercing,piercing|Poison,poison|Psychic,psychic|Radiant,radiant|Slashing,slashing|Thunder,thunder';
-            const abilities = 'No,no|Strength,strength|Dexterity,dexterity|Constitution,constitution|Intelligence,intelligence|Wisdom,wisdom|Charisma,charisma';
+            const damageTypes = I18N.t('damage.normal')+',normal|'+I18N.t('damage.acid')+',acid|'+I18N.t('damage.bludgeoning')+',bludgeoning|'+I18N.t('damage.cold')+',cold|'+I18N.t('damage.fire')+',fire|'+I18N.t('damage.force')+',force|'+I18N.t('damage.lightning')+',lightning|'+I18N.t('damage.necrotic')+',necrotic|'+I18N.t('damage.piercing')+',piercing|'+I18N.t('damage.poison')+',poison|'+I18N.t('damage.psychic')+',psychic|'+I18N.t('damage.radiant')+',radiant|'+I18N.t('damage.slashing')+',slashing|'+I18N.t('damage.thunder')+',thunder';//KNB
+            const abilities = I18N.t('common.no')+',no|'+I18N.t('abilities.strength')+',strength|'+I18N.t('abilities.dexterity')+',dexterity|'+I18N.t('abilities.constitution')+',constitution|'+I18N.t('abilities.intelligence')+',intelligence|'+I18N.t('abilities.wisdom')+',wisdom|'+I18N.t('abilities.charisma')+',charisma';//KNB
             const dmgButton = this.iconButtonHtml({
                 iconHtml: '&#128165;',
-                label: 'Dmg',
+                label: I18N.t('common.damage_short'),//KNB
                 command: '!combatAssistant deal manual &#63;{Damage|0} &#63;{Type|' + damageTypes + '} &#63;{DC|0} &#63;{Save|' + abilities + '} &#63;{Half on Success|no|yes}' +
                     (RuntimeConfig.get('SHEET_2014_CA_ROLLS') ? ' &#63;{2014 Roll Mode|Normal,normal|Advantage,advantage|Disadvantage,disadvantage}' : ''),
                 backgroundColor: 'rgba(135,35,35,0.95)',
