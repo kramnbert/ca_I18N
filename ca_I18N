@@ -231,8 +231,9 @@ const CombatAssistant = (() => {
                 config: {
                     SETTINGS: 'Settings',
 					BACK_TO: 'Back to ',
-					MAIN: 'Main',
-					SUB_MENUS: 'Sub Menus',
+					SECTION_SUB_MENUS: 'Sub Menus',
+					SECTION_MAIN: 'Main',
+					SECTION_EXTRA: 'Extra',
 
                     PRIVACY_PAGE: 'Privacy Settings',
                     COMBAT_PAGE: 'Combat Settings',
@@ -361,7 +362,7 @@ const CombatAssistant = (() => {
                     back_narrative: 'retour',
                     toggle_narrative: 'inverser',
                     cancel_narrative: 'annuler',
-                    roll_narrative: 'Faire un jet',
+                    roll_narrative: 'Tirer',
                     modifier_narrative: 'modificateur',
                     savingthrow_narrative: 'jet sauveur',
                     savingthrow_narrative_short: 'JS',
@@ -474,7 +475,7 @@ const CombatAssistant = (() => {
                     whisper: 'Murmurer',
                     'roll-damage': 'Dégâts auto',
                     'dex-tiebreaker': 'Egalité Init.',
-                    send: 'Envoyer',
+                    send: 'Envoi',
 
                     attack_tip: 'Faire l\'action Attaque',
                     disengage_tip: 'Faire l\'action Désengagement',
@@ -500,8 +501,9 @@ const CombatAssistant = (() => {
                 config: {
                     SETTINGS: 'Config.',
 					BACK_TO: 'Retour à ',
-					MAIN: 'Principal',
-					SUB_MENUS: 'Sous-menus',
+					SECTION_SUB_MENUS: 'Sous-menus',
+					SECTION_MAIN: 'Principal',
+					SECTION_EXTRA: 'Extra',
 
                     PRIVACY_PAGE: 'Confidentialité',
                     COMBAT_PAGE: 'Combat',
@@ -649,11 +651,11 @@ const CombatAssistant = (() => {
         'combat-special': Object.freeze({ title: (function () { return I18N.t('combat.SPECIALS') }) }),
     });
     const COMBAT_SPECIAL_SECTIONS = Object.freeze({
-        bonus: Object.freeze({ actionType: (function () { return I18N.t('combat.BONUS_ACTION') }), dataKey: 'bonusActions', title: (function () { return I18N.t('combat.BONUS_ACTIONS') }), nameColor: 'rgb(90,170,215)', abilityPrefix: 'repeating_npcbonusaction', legacySection: 'npcbonusaction' }),
-        reactions: Object.freeze({ actionType: (function () { return I18N.t('combat.REACTION') }), dataKey: 'reactions', title: (function () { return I18N.t('combat.REACTIONS') }), nameColor: 'rgb(220,145,70)', abilityPrefix: 'repeating_npcreaction', legacySection: 'npcreaction' }),
-        free: Object.freeze({ actionType: (function () { return I18N.t('combat.FREE_ACTION') }), dataKey: 'freeActions', title: (function () { return I18N.t('combat.FREE_ACTIONS') }), nameColor: 'rgb(105,185,105)', abilityPrefix: 'repeating_npcfreeaction', legacySection: '' }),
-        legendary: Object.freeze({ actionType: (function () { return I18N.t('combat.LEGENDARY_ACTION') }), dataKey: 'legendaryActions', title: (function () { return I18N.t('combat.LEGENDARY_ACTIONS') }), nameColor: 'rgb(230,195,65)', abilityPrefix: 'repeating_npcaction-l', legacySection: 'npcaction-l' }),
-        mythic: Object.freeze({ actionType: (function () { return I18N.t('combat.MYTHIC_ACTION') }), dataKey: 'mythicActions', title: (function () { return I18N.t('combat.MYTHIC_ACTIONS') }), nameColor: 'rgb(220,70,70)', abilityPrefix: 'repeating_npcaction-m', legacySection: 'npcaction-m' }),
+        bonus: Object.freeze({ actionType: 'Bonus Action'/*(function () { return I18N.t('combat.BONUS_ACTION') })*/, dataKey: 'bonusActions', title: (function () { return I18N.t('combat.BONUS_ACTIONS') }), nameColor: 'rgb(90,170,215)', abilityPrefix: 'repeating_npcbonusaction', legacySection: 'npcbonusaction' }),
+        reactions: Object.freeze({ actionType: 'Reaction'/*(function () { return I18N.t('combat.REACTION') })*/, dataKey: 'reactions', title: (function () { return I18N.t('combat.REACTIONS') }), nameColor: 'rgb(220,145,70)', abilityPrefix: 'repeating_npcreaction', legacySection: 'npcreaction' }),
+        free: Object.freeze({ actionType: 'Free Action'/*(function () { return I18N.t('combat.FREE_ACTION') })*/, dataKey: 'freeActions', title: (function () { return I18N.t('combat.FREE_ACTIONS') }), nameColor: 'rgb(105,185,105)', abilityPrefix: 'repeating_npcfreeaction', legacySection: '' }),
+        legendary: Object.freeze({ actionType: 'Legendary Action'/*(function () { return I18N.t('combat.LEGENDARY_ACTION') })*/, dataKey: 'legendaryActions', title: (function () { return I18N.t('combat.LEGENDARY_ACTIONS') }), nameColor: 'rgb(230,195,65)', abilityPrefix: 'repeating_npcaction-l', legacySection: 'npcaction-l' }),
+        mythic: Object.freeze({ actionType: 'Mythic Action'/*(function () { return I18N.t('combat.MYTHIC_ACTION') })*/, dataKey: 'mythicActions', title: (function () { return I18N.t('combat.MYTHIC_ACTIONS') }), nameColor: 'rgb(220,70,70)', abilityPrefix: 'repeating_npcaction-m', legacySection: 'npcaction-m' }),
     });
     //KNB
     const COMBAT_SPECIAL_SECTION_KEYS = Object.freeze(['bonus', 'reactions', 'free', 'legendary', 'mythic']);
@@ -1065,7 +1067,7 @@ const CombatAssistant = (() => {
         { key: 'SHOW_PREPARED_SPELLS_ONLY_2024', page: 'resources', label: (function () { return I18N.t('config.SHOW_PREPARED_SPELLS_ONLY_2024') }), type: 'boolean', tip: (function () { return I18N.t('config.SHOW_PREPARED_SPELLS_ONLY_2024_tip') }) },
         { key: 'PLAYER_PUBLIC_RESOURCE_USAGE', page: 'resources', label: (function () { return I18N.t('config.PLAYER_PUBLIC_RESOURCE_USAGE') }), type: 'boolean', tip: (function () { return I18N.t('config.PLAYER_PUBLIC_RESOURCE_USAGE_tip') }) },
 
-        { key: 'USE_ROLL20_DAMAGE_ICON', page: 'main', section: 'Extra', label: (function () { return I18N.t('config.USE_ROLL20_DAMAGE_ICON') }), type: 'boolean', tip: (function () { return I18N.t('config.USE_ROLL20_DAMAGE_ICON_tip') }) },
+        { key: 'USE_ROLL20_DAMAGE_ICON', page: 'main', section: (function () { return I18N.t('config.SECTION_EXTRA') }), label: (function () { return I18N.t('config.USE_ROLL20_DAMAGE_ICON') }), type: 'boolean', tip: (function () { return I18N.t('config.USE_ROLL20_DAMAGE_ICON_tip') }) },
         { key: 'APPLY_ROLL20_ICON_DAMAGE_COLOR', page: 'main', label: (function () { return I18N.t('config.APPLY_ROLL20_ICON_DAMAGE_COLOR') }), type: 'boolean', tip: (function () { return I18N.t('config.APPLY_ROLL20_ICON_DAMAGE_COLOR_tip') }) },
         { key: 'DEBUG', page: 'main', label: (function () { return I18N.t('config.DEBUG') }), type: 'boolean', temporary: true, advancedOnly: true, tip: (function () { return I18N.t('config.DEBUG_tip') }) },
         { key: 'CHAT_DEBUG_ATTACKS', page: 'main', label: (function () { return I18N.t('config.CHAT_DEBUG_ATTACKS') }), type: 'boolean', temporary: true, advancedOnly: true, tip: (function () { return I18N.t('config.CHAT_DEBUG_ATTACKS_tip') }) },
@@ -6373,7 +6375,7 @@ const CombatAssistant = (() => {
             const nameCursor = tooltip ? 'cursor:help;' : '';
             return '<table style="width:100%;border-collapse:collapse;table-layout:fixed;' + (hasSeparator ? 'border-bottom:1px solid rgba(255,255,255,0.12);' : '') + '"><tbody><tr>' +
                 '<td style="width:70%;text-align:left;vertical-align:middle;padding:4px 3px 4px 0;white-space:normal;overflow-wrap:normal;word-break:normal;">' +
-                    '<div' + nameTitle + ' style="color:' + Utils.attrSafe(safeNameColor) + ';font-size:11px;line-height:13px;font-weight:700;white-space:normal;overflow-wrap:normal;word-break:normal;' + nameCursor + '">' + Utils.escapeHtml(String(name || I18N.t('actions.title_singular'))) + '</div>' +//KNB
+                    '<div' + nameTitle + ' style="color:' + Utils.attrSafe(safeNameColor) + ';font-size:11px;line-height:13px;font-weight:700;white-space:normal;overflow-wrap:normal;word-break:normal;' + nameCursor + '">' + Utils.escapeHtml(String(name || I18N.t('actions.title_singular'))) + '</div>' +//'Action')) + '</div>' +//KNB
                     (detailsHtml ? ('<div style="padding-top:1px;color:rgb(255,255,255);font-size:9px;line-height:11px;font-weight:400;white-space:normal;">' + detailsHtml + '</div>') : '') +
                 '</td>' +
                 '<td style="width:20%;text-align:center;vertical-align:middle;padding:0;">' + String(middleControlHtml || '') + '</td>' +
@@ -6384,7 +6386,7 @@ const CombatAssistant = (() => {
         specialActionTitleHtml(result, fallbackTitle) {
             const source = result && typeof result === 'object' ? result : {};
             const revealSource = RuntimeConfig.get('REVEAL_DAMAGE_SOURCE');
-            const actionName = revealSource ? String(source.attackName || fallbackTitle || 'Special Action').trim() : String(fallbackTitle || 'Special Action').trim();
+            const actionName = revealSource ? String(source.attackName || fallbackTitle || I18N.t('actions.special_singular')).trim() : String(fallbackTitle || I18N.t('actions.special_singular')).trim();//KNB
             const image = this.chatTokenImageHtml(String(source.tokenImgsrc || '').trim(), 24, '', 3) || '<span style="display:block;width:24px;height:24px;"></span>';
             return '<table style="width:100%;border-collapse:collapse;table-layout:fixed;"><tbody><tr>' +
                 '<td style="width:28px;text-align:left;vertical-align:middle;padding:0;">' + image + '</td>' +
@@ -6429,13 +6431,13 @@ const CombatAssistant = (() => {
                 let detailLabel = String(action.detailLabel || '').trim();
                 if (hasAttackRoll) {
                     middleControl = this.combatAttackRollButtonHtml(action);
-                    detailLabel = String(action.attackTypeLabel || action.attackType || I18N.t('actions.attack')).trim() || I18N.t('actions.attack');//KNB
+                    detailLabel = String(action.attackTypeLabel || action.attackType || 'Attack').trim() || 'Attack';//I18N.t('actions.attack')).trim() || I18N.t('actions.attack');//KNB
                 } else if (hasEffect) {
                     middleControl = this.combatAttackDamageButtonHtml(action, { tokenId });
-                    if (!detailLabel) detailLabel = String(action.effectLabel || I18N.t('actions.damage')).trim() || I18N.t('actions.damage');//KNB
+                    if (!detailLabel) detailLabel = String(action.effectLabel || 'Damage').trim() || 'Damage';//I18N.t('actions.damage')).trim() || I18N.t('actions.damage');//KNB
                 } else {
                     rightControl = this.combatActionSendButtonHtml(action, { tokenId });
-                    if (!detailLabel) detailLabel = String(action.actionType() || I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular');//KNB
+                    if (!detailLabel) detailLabel = String(action.actionType || 'Action').trim() || 'Action';//I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular');//KNB
                 }
                 const details = Utils.escapeHtml(detailLabel) +
                     (action.abilityLabel ? (' <span style="color:rgb(155,155,155);font-weight:700;">[' + Utils.escapeHtml(String(action.abilityLabel)) + ']</span>') : '') +
@@ -6491,8 +6493,8 @@ const CombatAssistant = (() => {
                 const ability = String(attack.abilityLabel || '').trim();
                 const actionOnly = !!String(attack.sendCommand || '').trim() && !String(attack.rollCommand || '').trim();
                 const attackType = actionOnly
-                    ? (String(attack.detailLabel || attack.actionType || I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular'))//KNB
-                    : (String(attack.attackTypeLabel || attack.attackType || I18N.t('actions.attack')).trim() || I18N.t('actions.attack'));//KNB
+                    ? (String(attack.detailLabel || attack.actionType || 'Action').trim() || 'Action')//I18N.t('actions.title_singular')).trim() || I18N.t('actions.title_singular'))//KNB
+                    : (String(attack.attackTypeLabel || attack.attackType || 'Attack').trim() || 'Attack');//I18N.t('actions.attack')).trim() || I18N.t('actions.attack'));//KNB
                 const rangeLabel = !actionOnly && /^(?:Ranged Attack|Ranged Save)$/i.test(attackType) ? String(attack.rangeLabel || '').trim() : '';
                 const details = Utils.escapeHtml(attackType) +
                     (ability ? (' <span style="color:rgb(155,155,155);font-weight:700;">[' + Utils.escapeHtml(ability) + ']</span>') : '') +
@@ -7026,7 +7028,7 @@ const CombatAssistant = (() => {
             const settings = RuntimeConfig.getAll();
             const renderRows = (fields) => fields.map((field) => {
                 const value = settings[field.key];
-                const sectionRow = field.section ? this.settingsSectionRowHtml(field.section, pageKey === 'markers' ? 3 : 2) : '';
+                const sectionRow = field.section ? this.settingsSectionRowHtml(field.section(), pageKey === 'markers' ? 3 : 2) : '';//KNB
                 let button = '';
                 if (field.type === 'action') {
                     button = this.compactSettingButtonHtml({
@@ -7087,7 +7089,7 @@ const CombatAssistant = (() => {
             });
             if (pageKey === 'main') {
                 const mainFields = RuntimeConfig.fields('main');
-                const extraStart = mainFields.findIndex((field) => field.section === 'Extra');
+                const extraStart = mainFields.findIndex((field) => (field.section ? field.section() : '') === I18N.t('config.SECTION_EXTRA'));//'Extra');//KNB
                 const primaryRows = renderRows(extraStart >= 0 ? mainFields.slice(0, extraStart) : mainFields);
                 const extraRows = renderRows(extraStart >= 0 ? mainFields.slice(extraStart) : []);
                 const navigationRows = [
@@ -7114,8 +7116,8 @@ const CombatAssistant = (() => {
                         }) + '</td>';
                 }).join('') + '</tr>').join('');
                 const body =
-                    navigationTableOpen + this.settingsSectionRowHtml(I18N.t('config.SUB_MENUS'), 2) + navigation + tableClose +//KNB
-                    settingsTableOpen + this.settingsSectionRowHtml(I18N.t('config.MAIN'), 2) + primaryRows + tableClose +//KNB
+                    navigationTableOpen + this.settingsSectionRowHtml(I18N.t('config.SECTION_SUB_MENUS'), 2) + navigation + tableClose +//KNB
+                    settingsTableOpen + this.settingsSectionRowHtml(I18N.t('config.SECTION_MAIN'), 2) + primaryRows + tableClose +//KNB
                     settingsTableOpen + extraRows + tableClose +
                     '<div style="height:1px;background:rgba(125,125,125,0.65);margin:7px 0 6px 0;"></div>' +
                     '<div style="text-align:center;padding:0 0 2px 0;">' + defaultButton + '</div>';
@@ -16283,7 +16285,7 @@ const CombatAssistant = (() => {
                 name,
                 description: String(row && (row.description || row.show_desc || row.attack_onhit) || '').trim(),
                 sheetVersion: '2014 NPC',
-                actionType: definition.actionType(),//KNB
+                actionType: definition.actionType,//KNB
                 hasAttackRoll,
                 ability: '',
                 abilityLabel: '',
@@ -16296,7 +16298,7 @@ const CombatAssistant = (() => {
                 attackBreakdown: Utils.formatSigned(attackBonus) + ' (NPC sheet)',
                 damage,
                 effectLabel: damage.map((entry) => String(entry && entry.damageType || '')).filter(Boolean).join(' + '),
-                detailLabel: hasAttackRoll ? '' : (damage.length ? 'Damage' : definition.actionType()),//KNB
+                detailLabel: hasAttackRoll ? '' : (damage.length ? 'Damage' : definition.actionType),//KNB
                 rollCommand: hasAttackRoll ? actionCommand : '',
                 damageCommand: !hasAttackRoll && damage.length ? actionCommand : '',
                 sendCommand: actionCommand
@@ -16323,7 +16325,7 @@ const CombatAssistant = (() => {
                 name,
                 description: String(row && row.description || '').trim(),
                 sheetVersion: '2014 Trait',
-                actionType: definition.actionType(),//KNB
+                actionType: definition.actionType,//KNB
                 hasAttackRoll: false,
                 damage,
                 effectLabel: healing ? (healing.isTempHealing ? 'Temporary HP' : 'Healing') : '',
